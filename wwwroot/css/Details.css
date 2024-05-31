@@ -1,0 +1,87 @@
+﻿<style >
+body {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-top: 50px;
+}
+
+.form-label {
+    color: #ffffff;
+}
+
+.form-control, .form-select {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+    .form-control::placeholder, .form-select::placeholder {
+        color: #aaa;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #87CEEB;
+        box-shadow: 0 0 5px rgba(135, 206, 235, 0.5);
+    }
+
+.btn-primary {
+    background-color: #444;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* .btn-primary:hover {
+                        background-color: #87CEEB;
+                    } */
+
+.text-danger {
+    color: #ff6b6b;
+}
+
+fieldset {
+    width: 60%;
+    margin: auto;
+    border: none;
+}
+
+/* legend {
+                    color: #87CEEB;
+                    font-size: 1.5em;
+                } */
+
+/* .editor-label {
+                    margin-top: 10px;
+                    color: #87CEEB;
+                    font-weight: bold;
+                } */
+
+.editor-field {
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #87CEEB;
+}
+
+</style >

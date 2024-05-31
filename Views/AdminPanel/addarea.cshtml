@@ -1,0 +1,29 @@
+﻿@model Tasken2.Models.Area
+
+@{
+    ViewBag.Title = "Add Area";
+}
+
+<h2>Add Area</h2>
+<hr />
+
+<form asp-action="AddArea" method="post">
+    <div class="form-group">
+        <label for="AreaName">Area Name</label>
+        <input type="text" id="AreaName" name="AreaName" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="SurroundingArea">Surrounding Area</label>
+        <input type="text" id="SurroundingArea" name="SurroundingArea" class="form-control" required />
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Add </button>
+
+
+</form>
+
+
+<div>
+    <a href="/AdminPanel/Index><input type=" button" value="Admin Panel" class="btn btn-primary> </a>
+</div>

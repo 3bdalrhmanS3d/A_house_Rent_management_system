@@ -1,0 +1,525 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Tasken2.bundle.scp.css",
+      "PackagePath": "staticwebassets\\Tasken2.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\css\\Details.css",
+      "PackagePath": "staticwebassets\\css\\Details.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\249a2334-fc87-424a-81cc-e71efa55eab9.JPG",
+      "PackagePath": "staticwebassets\\images\\249a2334-fc87-424a-81cc-e71efa55eab9.JPG"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\29578d01-3809-4133-9dc8-040d4e5fe182.png",
+      "PackagePath": "staticwebassets\\images\\29578d01-3809-4133-9dc8-040d4e5fe182.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\61a6c061-e909-41f0-a847-fff531d5ac23.png",
+      "PackagePath": "staticwebassets\\images\\61a6c061-e909-41f0-a847-fff531d5ac23.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\65f9a275-14ec-409c-820f-ab129d9ba7d3.png",
+      "PackagePath": "staticwebassets\\images\\65f9a275-14ec-409c-820f-ab129d9ba7d3.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\762315bb-15e7-47d1-b94d-11a2c8db05f7.png",
+      "PackagePath": "staticwebassets\\images\\762315bb-15e7-47d1-b94d-11a2c8db05f7.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\80a4c7b2-788c-40c4-954b-d1efda790489.JPG",
+      "PackagePath": "staticwebassets\\images\\80a4c7b2-788c-40c4-954b-d1efda790489.JPG"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\8739ac37-9511-4ec0-ba7c-572e210612e4.png",
+      "PackagePath": "staticwebassets\\images\\8739ac37-9511-4ec0-ba7c-572e210612e4.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\8d07fb8e-f43c-4d78-ad2e-aea53e2a88fd.png",
+      "PackagePath": "staticwebassets\\images\\8d07fb8e-f43c-4d78-ad2e-aea53e2a88fd.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\99e472c5-f1c0-48db-9d01-57629e3640d3.png",
+      "PackagePath": "staticwebassets\\images\\99e472c5-f1c0-48db-9d01-57629e3640d3.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\IMG_6426.JPG",
+      "PackagePath": "staticwebassets\\images\\IMG_6426.JPG"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\IMG_6542.JPG",
+      "PackagePath": "staticwebassets\\images\\IMG_6542.JPG"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\Screenshot 2023-05-28 101342.png",
+      "PackagePath": "staticwebassets\\images\\Screenshot 2023-05-28 101342.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\Screenshot 2023-05-28 112749.png",
+      "PackagePath": "staticwebassets\\images\\Screenshot 2023-05-28 112749.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\Screenshot 2023-05-28 115543.png",
+      "PackagePath": "staticwebassets\\images\\Screenshot 2023-05-28 115543.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\Screenshot 2023-05-28 154052.png",
+      "PackagePath": "staticwebassets\\images\\Screenshot 2023-05-28 154052.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\Screenshot 2024-05-25 215453.png",
+      "PackagePath": "staticwebassets\\images\\Screenshot 2024-05-25 215453.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\b23c5ea7-72e2-40df-986d-b2a27517ddeb.png",
+      "PackagePath": "staticwebassets\\images\\b23c5ea7-72e2-40df-986d-b2a27517ddeb.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\bd74bcfc-7e32-41ce-b22a-4f524a486afa.png",
+      "PackagePath": "staticwebassets\\images\\bd74bcfc-7e32-41ce-b22a-4f524a486afa.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\f5c11d22-706c-417c-9dcf-1f16b371b8b6.png",
+      "PackagePath": "staticwebassets\\images\\f5c11d22-706c-417c-9dcf-1f16b371b8b6.png"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1A.jpg",
+      "PackagePath": "staticwebassets\\images\\image1A.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1B.jpg",
+      "PackagePath": "staticwebassets\\images\\image1B.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1C.jpg",
+      "PackagePath": "staticwebassets\\images\\image1C.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1D.jpg",
+      "PackagePath": "staticwebassets\\images\\image1D.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1E.jpg",
+      "PackagePath": "staticwebassets\\images\\image1E.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1F.jpg",
+      "PackagePath": "staticwebassets\\images\\image1F.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1G.jpg",
+      "PackagePath": "staticwebassets\\images\\image1G.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1H.jpg",
+      "PackagePath": "staticwebassets\\images\\image1H.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1I.jpg",
+      "PackagePath": "staticwebassets\\images\\image1I.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1J.jpg",
+      "PackagePath": "staticwebassets\\images\\image1J.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1K.jpg",
+      "PackagePath": "staticwebassets\\images\\image1K.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1L.jpg",
+      "PackagePath": "staticwebassets\\images\\image1L.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1M.jpg",
+      "PackagePath": "staticwebassets\\images\\image1M.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1N.jpg",
+      "PackagePath": "staticwebassets\\images\\image1N.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image1O.jpg",
+      "PackagePath": "staticwebassets\\images\\image1O.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2A.jpg",
+      "PackagePath": "staticwebassets\\images\\image2A.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2B.jpg",
+      "PackagePath": "staticwebassets\\images\\image2B.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2C.jpg",
+      "PackagePath": "staticwebassets\\images\\image2C.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2D.jpg",
+      "PackagePath": "staticwebassets\\images\\image2D.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2E.jpg",
+      "PackagePath": "staticwebassets\\images\\image2E.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2F.jpg",
+      "PackagePath": "staticwebassets\\images\\image2F.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2G.jpg",
+      "PackagePath": "staticwebassets\\images\\image2G.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2H.jpg",
+      "PackagePath": "staticwebassets\\images\\image2H.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2I.jpg",
+      "PackagePath": "staticwebassets\\images\\image2I.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2J.jpg",
+      "PackagePath": "staticwebassets\\images\\image2J.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2K.jpg",
+      "PackagePath": "staticwebassets\\images\\image2K.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2L.jpg",
+      "PackagePath": "staticwebassets\\images\\image2L.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2M.jpg",
+      "PackagePath": "staticwebassets\\images\\image2M.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2N.jpg",
+      "PackagePath": "staticwebassets\\images\\image2N.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image2O.jpg",
+      "PackagePath": "staticwebassets\\images\\image2O.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3A.jpg",
+      "PackagePath": "staticwebassets\\images\\image3A.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3B.jpg",
+      "PackagePath": "staticwebassets\\images\\image3B.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3C.jpg",
+      "PackagePath": "staticwebassets\\images\\image3C.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3D.jpg",
+      "PackagePath": "staticwebassets\\images\\image3D.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3E.jpg",
+      "PackagePath": "staticwebassets\\images\\image3E.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3F.jpg",
+      "PackagePath": "staticwebassets\\images\\image3F.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3G.jpg",
+      "PackagePath": "staticwebassets\\images\\image3G.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3H.jpg",
+      "PackagePath": "staticwebassets\\images\\image3H.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3I.jpg",
+      "PackagePath": "staticwebassets\\images\\image3I.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3J.jpg",
+      "PackagePath": "staticwebassets\\images\\image3J.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3K.jpg",
+      "PackagePath": "staticwebassets\\images\\image3K.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3L.jpg",
+      "PackagePath": "staticwebassets\\images\\image3L.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3M.jpg",
+      "PackagePath": "staticwebassets\\images\\image3M.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3N.jpg",
+      "PackagePath": "staticwebassets\\images\\image3N.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\images\\image3O.jpg",
+      "PackagePath": "staticwebassets\\images\\image3O.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Tasken2.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.Tasken2.props",
+      "PackagePath": "build\\Tasken2.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.Tasken2.props",
+      "PackagePath": "buildMultiTargeting\\Tasken2.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.Tasken2.props",
+      "PackagePath": "buildTransitive\\Tasken2.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Report";
+}
+
+<center>
+    <h2>Report</h2>
+    <label> <a href="/AdminPanel"> Admin Panel</a></label>
+    <hr />
+
+    <table cellpadding="15" cellspacing="20" border="1" rules="all">
+        <tr>
+            <td>
+                <h3>Most House Available In Area</h3>
+            </td>
+            <td>
+                <p>@ViewBag.AreaName</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <h3>Most Visited IP</h3>
+            </td>
+            <td>
+                <p>@ViewBag.Ip</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <h3>Most Searched Keyword</h3>
+            </td>
+            <td>
+                <p>@ViewBag.KeyWord</p>
+            </td>
+        </tr>
+
+       
+    </table>
+</center>
+
+
+<div>
+    @Html.ActionLink("Home", "Index", "Home")
+</div>

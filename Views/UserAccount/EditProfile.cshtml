@@ -1,0 +1,169 @@
+﻿@model Tasken2.Models.Person
+
+@{
+    ViewData["Title"] = "Edit Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* <style>
+    body {
+        background-color: rgba(0, 0, 0, 0.4);
+        /* color: white; */
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        width: 85%;
+        max-width: 600px;
+        background-color: white;
+        padding: 2em;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 2em;
+    }
+
+    .form-control {
+        margin-bottom: 1em;
+    }
+
+    .link {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+        .link:hover {
+            color: #0056b3;
+        }
+
+    h2 {
+        margin-bottom: 1em;
+    }
+
+</style> *@
+
+<style>
+    body {
+        background-color: rgba(0, 0, 0, 0.4);
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        margin-top: 50px;
+    }
+
+    .form-label {
+        color: #ffffff;
+    }
+
+    .form-control, .form-select {
+        background-color: #333;
+        color: white;
+        border: 1px solid #555;
+    }
+
+        .form-control::placeholder, .form-select::placeholder {
+            color: #aaa;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #87CEEB;
+            box-shadow: 0 0 5px rgba(135, 206, 235, 0.5);
+        }
+
+    .btn-primary {
+        background-color: #444;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    /* .btn-primary:hover {
+                background-color: #87CEEB;
+            } */
+
+    .text-danger {
+        color: #ff6b6b;
+    }
+
+    fieldset {
+        width: 60%;
+        margin: auto;
+        border: none;
+    }
+
+    /* legend {
+            color: #87CEEB;
+            font-size: 1.5em;
+        } */
+
+    /* .editor-label {
+            margin-top: 10px;
+            color: #87CEEB;
+            font-weight: bold;
+        } */
+
+    .editor-field {
+        margin-bottom: 10px;
+    }
+
+    input[type="file"] {
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        color: #87CEEB;
+    }
+</style>
+<div class="container">
+    <h2>Edit Profile</h2>
+    <form asp-action="EditProfile" method="post">
+        <div class="form-group">
+            <label asp-for="firstName" value="" class="control-label"> First name</label>
+            <input asp-for="firstName" class="form-control" />
+            <span asp-validation-for="firstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="lastName" class="control-label">Last namw</label>
+            <input asp-for="lastName" class="form-control" />
+            <span asp-validation-for="lastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="phoneNumber" class="control-label">Phone number</label>
+            <input asp-for="phoneNumber" class="form-control" />
+            <span asp-validation-for="phoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="password" class="control-label">Password</label>
+            <input asp-for="password" class="form-control" type="password" />
+            <span asp-validation-for="password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="confirmPassword" class="control-label">Confirm password</label>
+            <input asp-for="confirmPassword" class="form-control" type="password" />
+            <span asp-validation-for="confirmPassword" class="text-danger"></span>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+    <br />
+    <div class="link">
+        <a href="Index" class="btn btn-primary">Back to Account</a>
+        @* <a asp-action="Index" asp-controller="UserAccount" class="btn btn-link">Back to Account</a> *@
+    </div>
+</div>

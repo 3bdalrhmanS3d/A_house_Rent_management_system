@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Tasken2.props" />
+</Project>

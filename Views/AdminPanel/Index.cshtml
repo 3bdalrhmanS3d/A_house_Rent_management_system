@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "Admin Panel";
+}
+<style>
+    
+    th {
+        text-align: center;
+    }
+
+    
+
+</style>
+
+<center>
+    <h2>Admin Panel</h2>
+    <hr />
+
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-success">
+            @ViewBag.Message
+        </div>
+    }
+
+    <div class="navbar">
+        <label><a href="/AdminPanel/Report" class="btn btn-primary btn-lg " role="button" aria-pressed="true">Report</a></label>
+        <label><a href="#ApprovedPost" class="btn btn-outline-primary">Approved Post</a></label>
+        <label><a href="#PendingPost" class="btn btn-outline-primary">Pending Post</a></label>
+        <label><a href="#Area" class="btn btn-outline-primary">Areas</a></label>
+        <label><a href="#User" class="btn btn-outline-primary">Users</a></label>
+        <label><a href="#Admin" class="btn btn-outline-primary">Admins</a></label>
+        <br />
+    </div>
+
+    <hr />
+
+    <h3 id="ApprovedPost">Approved Post</h3>
+    <hr />
+    <table cellpadding="15" cellspacing="20" border="1" rules="all">
+        @foreach (var item in ViewBag.Approved)
+        {
+
+            <div class="card" style="width: 90%;">
+                <img class="card-img-top" src="@item.propImage1" alt="Card image cap" width="664px" height="200px">
+
+                <div class="card-body">
+                    <p class="card-text" > Area: @item.propArea | Price: @item.propPrice | Address: @item.propRegion , @item.propStreet</p>
+                    <a href="/UserHome/Details/@item.propertyID" class="btn btn-primary"> Details </a>
+                    <a href="/AdminPanel/DeletePost/@item.propertyID"><input type="button" value="Delete" class="btn btn-outline-danger"> </a>
+                    <a href="/AdminPanel/PendingPost/@item.propertyID"><input type="button" value="Pending" class="btn btn-outline-warning" /></a>
+                </div>
+
+            </div>
+            <br />
+        }
+    </table>
+
+    <br />
+
+    <h3 id="PendingPost">Pending Post</h3>
+    <hr />
+    <table cellpadding="15" cellspacing="20" border="1" rules="all">
+        @foreach (var item in ViewBag.Pending)
+        {
+
+            <div class="card" style="width: 90%;">
+                <img class="card-img-top" src="@item.propImage1" alt="Card image cap" width="664px" height="200px">
+
+                <div class="card-body">
+                    <p class="card-text"> Area: @item.propArea | Price: @item.propPrice | Address: @item.propRegion , @item.propStreet</p>
+                    <a href="/postDetail/Index/@item.propertyID" class="btn btn-primary"> Details </a>
+                    <a href= "/AdminPanel/DeletePost/@item.propertyID"><input type="button" value="Delete" class="btn btn-outline-danger"> </a>
+                    <a href="/AdminPanel/ApprovePost/@item.propertyID"><input type="button" value="Approve" class="btn btn-outline-success" /></a>
+                </div>
+
+            </div>
+            <br />
+            
+        }
+    </table>
+
+    <br />
+    <h3 id="Area">Areas</h3>
+    <hr />
+    <a href="/AdminPanel/AddArea"><input type="button" value="Add New Area" class="btn btn-outline-primary" /></a>
+    
+    <br />
+    <table cellpadding="10" cellspacing="10" border="1" rules="all">
+        @foreach (var area in ViewBag.Area)
+        {
+            <tr>
+                <td>@area.AreaName</td>
+                <td>
+                    <a href="/AdminPanel/DeleteArea/@area.Id"><input type="button" value="Delete" class="btn btn-outline-danger"> </a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <br />
+    <h3 id="User">Users</h3>
+    <hr />
+
+    @* <!-- نموذج البحث عن المستخدمين -->
+    <form method="get" href="/AdminPanel/Index/0">
+        <input type="text" name="searchString" placeholder="Search users" class="form-control" style="width: 50%; display: inline;">
+        <input type="submit" value="Search" class="btn btn-outline-primary">
+        <a href="/AdminPanel/Index" class="btn btn-outline-secondary">Clear Search</a>
+    </form> *@
+    <br />
+    <table cellpadding="15" cellspacing="20" border="1" rules="all">
+        <thead>
+            <tr >
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        @foreach (var item in ViewBag.User)
+        {
+            <tr>
+                <td>@item.firstName @item.lastName</td>
+                <td>@item.email</td>
+                <td>@item.phoneNumber</td>
+                <td>
+                    <a href="/AdminPanel/DeleteUser/@item.personID"><input type="button" value="Delete" class="btn btn-outline-danger"> </a>
+                    <a href="/AdminPanel/MakeAdmin/@item.personID"><input type="button" value="Make Admin" class="btn btn-outline-warning" > </a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <br />
+    <h3 id="Admin">Admins</h3>
+    <hr />
+    
+
+    <br />
+    <table cellpadding="15" cellspacing="20" border="1" rules="all">
+
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        @foreach (var item in ViewBag.Admin)
+        {
+            <tr>
+                <td>@item.firstName @item.lastName</td>
+                <td>@item.email</td>
+                <td>@item.phoneNumber</td>
+                <td><a href="/AdminPanel/DeleteAdmin/@item.personID"><input type="button" value="Delete" class="btn btn-outline-danger"> </a></td>
+            </tr>
+           
+        }
+    </table>
+</center>

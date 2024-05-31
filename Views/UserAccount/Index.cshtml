@@ -1,0 +1,195 @@
+﻿@model Tasken2.Models.Person
+
+@{
+    ViewData["Title"] = "My Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        background-color: rgba(0, 0, 0, 0.4);
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        margin-top: 50px;
+    }
+
+    .form-label {
+        color: #ffffff;
+    }
+
+    .form-control, .form-select {
+        background-color: #333;
+        color: white;
+        border: 1px solid #555;
+    }
+
+        .form-control::placeholder, .form-select::placeholder {
+            color: #aaa;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #87CEEB;
+            box-shadow: 0 0 5px rgba(135, 206, 235, 0.5);
+        }
+
+    .btn-primary {
+        background-color: #444;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+        /* .btn-primary:hover {
+            background-color: #87CEEB;
+        } */
+
+    .text-danger {
+        color: #ff6b6b;
+    }
+
+    fieldset {
+        width: 60%;
+        margin: auto;
+        border: none;
+    }
+
+    /* legend {
+        color: #87CEEB;
+        font-size: 1.5em;
+    } */
+
+    /* .editor-label {
+        margin-top: 10px;
+        color: #87CEEB;
+        font-weight: bold;
+    } */
+
+    .editor-field {
+        margin-bottom: 10px;
+    }
+
+    input[type="file"] {
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        color: #87CEEB;
+    }
+</style>
+
+<div class="container">
+    <h2> Wellcom @Model.firstName @Model.lastName </h2>
+
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-info">@TempData["message"]</div>
+    }
+
+    <div>
+        <a asp-action="EditProfile" class="btn btn-primary">Edit Profile</a>
+    </div>
+
+    <br />
+    <br />
+    
+    <p>Do you want to add a new property?</p> <a href="PostpropertyAdd/Index" class="btn btn-primary" >  Add Property </a>
+    <br />
+    <br />
+    <h3>Active Posts</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Region</th>
+                <th>Street</th>
+                <th>Price</th>
+                <th>Area</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in ViewBag.ActivePost)
+            {
+                <tr>
+                    <td>
+                        <img src="@post.propImage1" alt="Post Image" width="150" height="150" />
+                    </td>
+                    <td>@post.propRegion</td>
+                    <td>@post.propStreet</td>
+                    <td>@post.propPrice</td>
+                    <td>@post.propArea</td>
+                    <td>
+                        <a asp-action="EditProperty" asp-route-id="@post.propertyID" class="btn btn-warning">Edit</a>
+                        <form asp-action="DisablePost" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@post.propertyID" />
+                            <input type="submit" value="Disable" class="btn btn-warning" />
+                        </form>
+                        <form asp-action="DeletePost" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@post.propertyID" />
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Inactive Posts</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Region</th>
+                <th>Street</th>
+                <th>Price</th>
+                <th>Area</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in ViewBag.InActivePost)
+            {
+                <tr>
+                    <td>
+                        <img src="~/Images/@post.propImage1" alt="Post Image" width="100" height="100" />
+                    </td>
+                    <td>@post.propRegion</td>
+                    <td>@post.propStreet</td>
+                    <td>@post.propPrice</td>
+                    <td>@post.propArea</td>
+                    <td>
+                        <form asp-action="ActivatePost" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@post.propertyID" />
+                            <input type="submit" value="Activate" class="btn btn-success" />
+                        </form>
+                        <form asp-action="DeletePost" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@post.propertyID" />
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <footer>
+       @*  <div>
+            <a href="Index" class="btn btn-primary" > Home </a>
+        </div> *@
+    </footer>
+</div>

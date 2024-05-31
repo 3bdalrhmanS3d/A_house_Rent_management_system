@@ -1,0 +1,134 @@
+﻿@model IEnumerable<Tasken2.Models.Property>
+
+<style>
+
+    body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.card {
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #6c757d; /* رمادي */
+    color: white;
+    padding: 10px;
+}
+
+.card-body {
+    color: #6c757d; /* رمادي */
+    padding: 15px;
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    padding: 10px;
+}
+
+.card-text {
+    margin: 5px 0;
+}
+
+h5.card-title {
+    font-size: 18px;
+    margin: 0;
+}
+
+img {
+    object-fit: cover;
+}
+
+.btn-outline-primary {
+    color: #6c757d; /* رمادي */
+    border-color: #6c757d;
+}
+
+.btn-outline-primary:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.col-xs-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+
+</style>
+
+
+<!-- نموذج البحث -->
+<form method="get" action="/UserHome/Index">
+    <div class="form-group">
+        <label for="searchArea">Search by Location </label>
+        <input type="text" name="searchArea" class="form-control" placeholder="Enter area">
+    </div>
+    <div class="form-group">
+        <label for="searchPrice">Search by Price (<=)</label>
+        <input type="number" name="searchPrice" class="form-control" placeholder="Enter maximum price">
+    </div>
+    <div class="form-group">
+        <label for="searchAreaSize">Search by Area Size (<=)</label>
+        <input type="number" name="searchAreaSize" class="form-control" placeholder="Enter maximum area size">
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary">Search</button>
+    <a href="/UserHome/Index" class="btn btn-secondary">Clear Search</a>
+</form>
+<br />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 col-xs-12 border-primary mb-3">
+            <div class="card mb-3" style="max-width: 100%;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-secondary">
+                            <h5 class="card-title">
+                                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                {
+                                    <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.propertyID"><i class="bi bi-pencil-square"></i></a>
+                                }
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@item.propImage1" width="100%" height="200px" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body text-secondary">
+                            <p class="card-text"><b>Price : </b>@item.propPrice</p>
+                            <p class="card-text"><b>Area : </b>@item.propArea sqm</p>
+                            @* <p class="card-text"><b>Owner : </b>@item.CreatedBy.firstName @item.CreatedBy.lastName</p> *@
+                            <p class="card-text"><b>Number of rooms : </b>@item.probNumberOfRooms</p>
+                            <p class="card-text"><b>Published : </b>@item.CreatedAt.ToString("dd MMM yy")</p>
+                            <p class="card-text"><b>Address :</b> @item.propRegion, @item.propStreet, Floor: @item.propFloorNumber</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.propertyID">
+                                <i class="bi bi-eye-fill"></i> Show Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

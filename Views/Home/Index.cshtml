@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+<style>
+    li:hover {
+        background-color: gray;
+    }
+
+    .textparagraph {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        width: 65%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: large;
+        font-style: italic;
+    }
+
+    .title {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 5rem;
+        font-style: italic;
+        text-transform: uppercase;
+    }
+
+    .dec {
+        margin: 20px 0px;
+        letter-spacing: 3px;
+        word-spacing: 8px;
+        line-height: 50px;
+    }
+
+    .button1 {
+        background-color: white;
+        margin-right: 15px;
+    }
+
+    .button2 {
+        background-color: #6195ff;
+        color: #fff;
+    }
+
+    .home {
+        height: 100vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+    }
+
+    .layerbLack {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, .4);
+    }
+
+    .main-button {
+        min-width: 100px;
+        padding: 15px 0;
+        border: 0;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 18px;
+        margin: 3px;
+        text-align: center;
+        display: inline-block;
+        text-decoration: none; 
+    }
+
+        .main-button:hover {
+            opacity: .8;
+        }
+
+    .hover-opacity {
+        transition: opacity .5s;
+    }
+</style>
+
+<div class="home">
+    <div class="layerbLack"></div>
+    <div class="textparagraph">
+        <h1><p class="title">WELCOME</p></h1>
+
+        <p class="dec">
+            "اكتشف منزلك المثالي مع تسكين – حيث تتحقق أحلامك العقارية!"
+        </p>
+
+        <br />
+        <br />
+        <br />
+        <span>
+
+            “Discover the ideal with Taskin 
+            – where your real 
+                         estate dreams come true!”
+        </span>
+
+
+        <br />
+        <br />
+        <a href="@Url.Action("Index", "Login")" class="main-button hover-opacity button1">log in</a>
+        <a href="@Url.Action("Index", "Registration")" class="main-button hover-opacity button2">sign up</a>
+    </div>
+</div>
