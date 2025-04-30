@@ -1,16 +1,10 @@
-﻿@model Tasken2.Models.Person
-
+﻿@model Tasken2.Controllers.DTOs.PersonInput
 @{
     ViewBag.Title = "Registration";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Taskeen</title>
+@section Styles {
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <style>
         body {
@@ -19,29 +13,45 @@
             font-family: Arial, sans-serif;
         }
 
-        .container {
+        .registration-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .registration-form {
             background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
+            padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            margin-top: 50px;
+            width: 100%;
+            max-width: 500px;
         }
+
+            .registration-form h2 {
+                color: #87CEEB;
+                margin-bottom: 1.5rem;
+            }
 
         .form-label {
             color: #ffffff;
         }
 
-        .form-control, .form-select {
+        .form-control,
+        .form-select {
             background-color: #333;
             color: white;
             border: 1px solid #555;
         }
 
-            .form-control::placeholder, .form-select::placeholder {
+            .form-control::placeholder,
+            .form-select::placeholder {
                 color: #aaa;
             }
 
-            .form-control:focus, .form-select:focus {
+            .form-control:focus,
+            .form-select:focus {
                 border-color: #87CEEB;
                 box-shadow: 0 0 5px rgba(135, 206, 235, 0.5);
             }
@@ -51,126 +61,89 @@
             border: none;
             color: white;
             padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
             font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
             border-radius: 8px;
         }
 
-        /* .btn-primary:hover {
-                        background-color: #87CEEB;
-                    } */
+            .btn-primary:hover {
+                background-color: #87CEEB;
+            }
 
         .text-danger {
             color: #ff6b6b;
         }
 
-        fieldset {
-            width: 60%;
-            margin: auto;
-            border: none;
-        }
-
-        /* legend {
-                    color: #87CEEB;
-                    font-size: 1.5em;
-                } */
-
-        /* .editor-label {
-                    margin-top: 10px;
-                    color: #87CEEB;
-                    font-weight: bold;
-                } */
-
-        .editor-field {
-            margin-bottom: 10px;
-        }
-
-        input[type="file"] {
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            color: #87CEEB;
+        .no-underline {
+            text-decoration: none;
         }
     </style>
-</head>
-<body>
-    <div class="registration-container">
-        <div class="registration-form">
-            <h2 class="text-center">Registration</h2>
-            <br />
-            <form asp-controller="Registration" asp-action="Index" enctype="multipart/form-data" method="post">
-                
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+}
 
-                <fieldset>
+<div class="registration-container">
+    <div class="registration-form">
+        <h2 class="text-center">Registration</h2>
+        <form asp-action="Index" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-                    <div class="form-group">
-                        <b> @Html.Label("First Name") </b>
-                        @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        <b> @Html.Label("Last Name") </b>
-                        @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        
-                        <b> @Html.Label("National ID") </b>
-                        @Html.EditorFor(model => model.nationalID, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.nationalID, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        <b> @Html.Label("Phone number") </b>
-                        @Html.EditorFor(model => model.phoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.phoneNumber, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        <b> @Html.Label(" Email ") </b>
-                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        <b> @Html.Label("Password") </b>
-                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        <b> @Html.Label("Confirm Password") </b>
-                        @Html.EditorFor(model => model.confirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.confirmPassword, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.Label("Image")
-                        <input type="file" name="img_file" class="form-control" />
-                    </div>
-
-                    <hr>
-
-                    <div class="form-group text-center">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
-                </fieldset>
-            </form>
-            <div class="text-center">
-                @Html.ActionLink("Already have an account ?", "Index", "Login", null, new { @class = "no-underline" })
+            <div class="mb-3">
+                <label asp-for="FirstName" class="form-label">First name</label>
+                <input asp-for="FirstName" class="form-control" placeholder="Enter your first name" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
-            <p class="text-center text-red">@ViewBag.message</p>
-        </div>
+
+            <div class="mb-3">
+                <label asp-for="LastName" class="form-label">Last name</label>
+                <input asp-for="LastName" class="form-control" placeholder="Enter your last name" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="nationalID" class="form-label">National ID</label>
+                <input asp-for="nationalID" class="form-control" placeholder="Enter National ID" />
+                <span asp-validation-for="nationalID" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="phoneNumber" class="form-label"> Phone number </label>
+                <input asp-for="phoneNumber" class="form-control" placeholder="Enter phone number" />
+                <span asp-validation-for="phoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="email" class="form-label">Email</label>
+                <input asp-for="email" class="form-control" placeholder="Enter email address" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="password" class="form-label">Password</label>
+                <input asp-for="password" type="password" class="form-control" placeholder="Enter password" />
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="confirmPassword" class="form-label">Confirm password</label>
+                <input asp-for="confirmPassword" type="password" class="form-control" placeholder="Confirm password" />
+                <span asp-validation-for="confirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NationalIdImageFile" class="form-label">National Id Image</label>
+                <input asp-for="NationalIdImageFile" type="file" class="form-control" />
+                <span asp-validation-for="NationalIdImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+
+            <div class="text-center mt-3">
+                <a asp-controller="Login" asp-action="Index" class="text-info no-underline">Already have an account?</a>
+            </div>
+        </form>
     </div>
-</body>
-</html>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

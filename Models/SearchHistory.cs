@@ -14,12 +14,17 @@ namespace Tasken2.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string? KeyWord { get; set; }
+
+        public string? Keyword { get; set; }
         public string? Ip { get; set; }
         public string? RoomFilter { get; set; }
-
         public string? PriceFilter { get; set; }
 
-        public DateTime DateTime { get; set; } = DateTime.Now;
+        public DateTime DateCreated { get; set; }
+
+        public SearchHistory()
+        {
+            DateCreated = DateTime.UtcNow;
+        }
     }
 }

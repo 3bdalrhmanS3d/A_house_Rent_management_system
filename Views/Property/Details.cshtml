@@ -1,0 +1,204 @@
+﻿@model Tasken2.Models.Property
+@{
+    ViewData["Title"] = "Property Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <style>
+            body {
+                background-color: #2E3440;
+                color: #D8DEE9;
+                font-family: "Segoe UI", Arial, sans-serif;
+            }
+
+            .details-container {
+                max-width: 900px;
+                margin: 2rem auto;
+                padding: 1.5rem;
+                background-color: #3B4252;
+                border-radius: 8px;
+            }
+
+            .details-header {
+                color: #81A1C1;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+            .carousel-inner img {
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+
+            .info-section dt {
+                color: #88C0D0;
+            }
+
+            .comments-section, .ratings-section {
+                margin-top: 2rem;
+            }
+
+            .form-control, .form-select {
+                background-color: #4C566A;
+                color: #D8DEE9;
+                border: 1px solid #434C5E;
+            }
+
+            .form-control::placeholder {
+                color: #B48EAD;
+            }
+
+            .btn-primary {
+                background-color: #5E81AC;
+                border: none;
+            }
+
+            .btn-primary:hover {
+                background-color: #81A1C1;
+            }
+
+            .btn-secondary {
+                background-color: #4C566A;
+                border: none;
+            }
+
+            .btn-secondary:hover {
+                background-color: #434C5E;
+            }
+
+            .text-danger {
+                color: #BF616A;
+            }
+
+            .text-muted {
+                color: #A3BE8C;
+            }
+
+            .border-bottom {
+                border-color: #434C5E !important;
+            }
+        </style>
+}
+
+<div class="details-container">
+    <h2 class="details-header">@Model.Region, @Model.Street (Floor @Model.FloorNumber)</h2>
+
+    <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @if (!string.IsNullOrEmpty(Model.Image1))
+            {
+                    <div class="carousel-item active"><img src="~/images/@Model.Image1" alt="Image 1" /></div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Image2))
+            {
+                    <div class="carousel-item"><img src="~/images/@Model.Image2" alt="Image 2" /></div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Image3))
+            {
+                    <div class="carousel-item"><img src="~/images/@Model.Image3" alt="Image 3" /></div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Image4))
+            {
+                    <div class="carousel-item"><img src="~/images/@Model.Image4" alt="Image 4" /></div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Image5))
+            {
+                    <div class="carousel-item"><img src="~/images/@Model.Image5" alt="Image 5" /></div>
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <section class="info-section">
+        <h4>Property Information</h4>
+        <dl class="row">
+            <dt class="col-sm-4">Price</dt>
+            <dd class="col-sm-8">@Model.Price:C</dd>
+            <dt class="col-sm-4">Area</dt>
+            <dd class="col-sm-8">@Model.Area sqm</dd>
+            <dt class="col-sm-4">Rooms</dt>
+            <dd class="col-sm-8">@Model.NumberOfRooms</dd>
+            <dt class="col-sm-4">Published</dt>
+            <dd class="col-sm-8">@Model.CreatedAt.ToString("dd MMM yyyy")</dd>
+            <dt class="col-sm-4">Owner</dt>
+            <dd class="col-sm-8">@Model.CreatedBy.FullName</dd>
+            <dt class="col-sm-4">Contact</dt>
+            <dd class="col-sm-8">@Model.CreatedBy.phoneNumber</dd>
+        </dl>
+    </section>
+
+    <section class="comments-section">
+        <h4>Comments</h4>
+
+       
+        <form asp-action="AddComment" method="post">
+                @Html.AntiForgeryToken()
+                    <input type="hidden" name="propertyId" value="@Model.PropertyId" />
+                    <div class="mb-3">
+                        <textarea name="commentText" class="form-control" rows="3" placeholder="Add a comment..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Comment</button>
+                </form>
+        
+
+        <div class="mt-4">
+            @foreach (var c in Model.Comments)
+            {
+                    <div class="border-bottom pb-2 mb-2">
+                        <strong>@c.Person.FullName</strong>
+                        <span class="text-muted ms-2">@c.CommentTime.ToString("g")</span>
+                        <p>@c.CommentText</p>
+                    </div>
+            }
+        </div>
+    </section>
+
+    <section class="ratings-section">
+        <h4>Ratings</h4>
+
+        <form asp-action="AddRating" method="post" class="mb-3">
+                @Html.AntiForgeryToken()
+                    <input type="hidden" name="propertyId" value="@Model.PropertyId" />
+                    <div class="input-group">
+                        <input type="number"
+                               name="rating"
+                               class="form-control"
+                               min="0"
+                               max="5"
+                               step="0.1"
+                               placeholder="Your rating (0–5)"
+                               required />
+                        <button type="submit" class="btn btn-secondary">Submit Rating</button>
+                    </div>
+                </form>
+        
+
+        <div>
+            @foreach (var r in Model.PropertyRatings)
+            {
+                    <div class="border-bottom pb-2 mb-2">
+                        <strong>@r.Person.FullName</strong>
+                        <span class="text-muted ms-2">@r.CreatedAt.ToString("g")</span>
+                        <p>Rating: @r.Rating</p>
+                    </div>
+            }
+        </div>
+    </section>
+
+    <div class="text-end mt-4">
+        <a asp-action="Index" class="btn btn-secondary">Back to Listings</a>
+    </div>
+</div>
+
+@section Scripts {
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+}

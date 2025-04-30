@@ -8,8 +8,11 @@ namespace Tasken2.Models
         [Key]
         public int Id { get; set; }
         [Required]
+        [StringLength(100)]
         public string AreaName { get; set; }
+
         [Required]
+        [StringLength(100)]
         public string SurroundingArea { get; set; }
     }
 }

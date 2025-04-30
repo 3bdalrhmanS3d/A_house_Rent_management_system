@@ -7,24 +7,25 @@ namespace Tasken2.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int propertyRatingID { get; set; } 
+        public int PropertyRatingId { get; set; }
 
         [Required]
-        [ForeignKey("Property")]
-        public int propID { get; set; } 
-
-        public Property Property { get; set; } 
+        public int PropertyId { get; set; }
+        public Property Property { get; set; }
 
         [Required]
-        [ForeignKey("Person")]
-        public int personID { get; set; } 
-
-        public Person Person { get; set; } 
+        public int PersonId { get; set; }
+        public Person? Person { get; set; }
 
         [Required]
         [Range(0, 5)]
-        public float Rating { get; set; } 
+        public float Rating { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now; 
+        public DateTime CreatedAt { get; set; }
+
+        public PropertyRating()
+        {
+            CreatedAt = DateTime.UtcNow;
+        }
     }
 }

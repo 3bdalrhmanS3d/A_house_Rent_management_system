@@ -1,134 +1,117 @@
 ﻿@model IEnumerable<Tasken2.Models.Property>
-
-<style>
-
-    body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+@{
+    ViewData["Title"] = "Available Properties";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-.card {
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
+@section Styles {
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        /* Nord palette */
+        body {
+            background-color: #2E3440;
+            color: #D8DEE9;
+        }
+
+        .search-form {
+            background-color: #3B4252;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+            .search-form .form-control {
+                background-color: #4C566A;
+                color: #D8DEE9;
+                border: 1px solid #434C5E;
+            }
+
+                .search-form .form-control::placeholder {
+                    color: #B48EAD;
+                }
+
+        .card-property {
+            background-color: #3B4252;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            color: #ECEFF4;
+        }
+
+            .card-property .card-header {
+                background-color: #434C5E;
+                color: #ECEFF4;
+            }
+
+            .card-property .card-body {
+                background-color: #4C566A;
+            }
+
+            .card-property .card-footer {
+                background-color: #434C5E;
+            }
+
+        .btn-outline-light {
+            color: #ECEFF4;
+            border-color: #ECEFF4;
+        }
+
+            .btn-outline-light:hover {
+                background-color: #81A1C1;
+                color: #2E3440;
+            }
+    </style>
 }
 
-.card-header {
-    background-color: #6c757d; /* رمادي */
-    color: white;
-    padding: 10px;
-}
-
-.card-body {
-    color: #6c757d; /* رمادي */
-    padding: 15px;
-}
-
-.card-footer {
-    background-color: #f8f9fa;
-    padding: 10px;
-}
-
-.card-text {
-    margin: 5px 0;
-}
-
-h5.card-title {
-    font-size: 18px;
-    margin: 0;
-}
-
-img {
-    object-fit: cover;
-}
-
-.btn-outline-primary {
-    color: #6c757d; /* رمادي */
-    border-color: #6c757d;
-}
-
-.btn-outline-primary:hover {
-    background-color: #6c757d;
-    color: white;
-}
-
-.row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.col-md-6 {
-    flex: 0 0 50%;
-    max-width: 50%;
-}
-
-.col-xs-12 {
-    flex: 0 0 100%;
-    max-width: 100%;
-}
-
-
-</style>
-
-
-<!-- نموذج البحث -->
-<form method="get" action="/UserHome/Index">
-    <div class="form-group">
-        <label for="searchArea">Search by Location </label>
-        <input type="text" name="searchArea" class="form-control" placeholder="Enter area">
+<div class="container py-4">
+    <div class="search-form">
+        <form asp-action="Index" method="get" class="row g-2 align-items-end">
+            <div class="col-md-4">
+                <label for="searchArea" class="form-label">Location</label>
+                <input type="text" name="searchArea" id="searchArea" class="form-control" placeholder="Enter region..." value="@Context.Request.Query["searchArea"]" />
+            </div>
+            <div class="col-md-3">
+                <label for="searchPrice" class="form-label">Max Price</label>
+                <input type="number" name="searchPrice" id="searchPrice" class="form-control" placeholder="0.00" step="0.01" value="@Context.Request.Query["searchPrice"]" />
+            </div>
+            <div class="col-md-3">
+                <label for="searchAreaSize" class="form-label">Max Area</label>
+                <input type="number" name="searchAreaSize" id="searchAreaSize" class="form-control" placeholder="0" step="0.1" value="@Context.Request.Query["searchAreaSize"]" />
+            </div>
+            <div class="col-md-2 d-grid">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a asp-action="Index" class="btn btn-secondary mt-1">Clear</a>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="searchPrice">Search by Price (<=)</label>
-        <input type="number" name="searchPrice" class="form-control" placeholder="Enter maximum price">
-    </div>
-    <div class="form-group">
-        <label for="searchAreaSize">Search by Area Size (<=)</label>
-        <input type="number" name="searchAreaSize" class="form-control" placeholder="Enter maximum area size">
-    </div>
-    <br />
 
-    <button type="submit" class="btn btn-primary">Search</button>
-    <a href="/UserHome/Index" class="btn btn-secondary">Clear Search</a>
-</form>
-<br />
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-6 col-xs-12 border-primary mb-3">
-            <div class="card mb-3" style="max-width: 100%;">
-                <div class="row g-0">
-                    <div class="col-md-12">
-                        <div class="card-header text-white bg-secondary">
-                            <h5 class="card-title">
-                                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                                {
-                                    <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.propertyID"><i class="bi bi-pencil-square"></i></a>
-                                }
-                            </h5>
-                        </div>
+    <a asp-controller="PostPropertyAdd" asp-action="Index" class="btn btn-primary ms-2">Add Post</a>
+	<hr />
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-property">
+                    <div class="card-header">
+                        <h5 class="mb-0">@item.Region - @item.Street</h5>
                     </div>
-                    <div class="col-md-6">
-                        <img src="@item.propImage1" width="100%" height="200px" alt="">
+                    <img src="~/images/@item.Image1" class="card-img-top" alt="Property image" style="height:200px; object-fit:cover;" />
+                    <div class="card-body">
+                        <p class="card-text"><strong>Price:</strong> @item.Price:C</p>
+                        <p class="card-text"><strong>Area:</strong> @item.Area sqm</p>
+                        <p class="card-text"><strong>Rooms:</strong> @item.NumberOfRooms</p>
+                        <p class="card-text"><strong>Posted:</strong> @item.CreatedAt.ToString("dd MMM yyyy")</p>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card-body text-secondary">
-                            <p class="card-text"><b>Price : </b>@item.propPrice</p>
-                            <p class="card-text"><b>Area : </b>@item.propArea sqm</p>
-                            @* <p class="card-text"><b>Owner : </b>@item.CreatedBy.firstName @item.CreatedBy.lastName</p> *@
-                            <p class="card-text"><b>Number of rooms : </b>@item.probNumberOfRooms</p>
-                            <p class="card-text"><b>Published : </b>@item.CreatedAt.ToString("dd MMM yy")</p>
-                            <p class="card-text"><b>Address :</b> @item.propRegion, @item.propStreet, Floor: @item.propFloorNumber</p>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card-footer">
-                            <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.propertyID">
-                                <i class="bi bi-eye-fill"></i> Show Details
-                            </a>
-                        </div>
+                    <div class="card-footer text-end">
+                        <a asp-action="Details" asp-route-id="@item.PropertyId" class="btn btn-outline-light">Details</a>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
 
+@section Scripts {
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+}

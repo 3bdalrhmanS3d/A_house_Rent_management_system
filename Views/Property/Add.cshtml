@@ -1,0 +1,141 @@
+﻿@model Tasken2.Controllers.DTOs.PropertyInput
+@{
+    ViewData["Title"] = "Add Property";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #2E3440;
+            color: #D8DEE9;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .add-container {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #3B4252;
+            border-radius: 8px;
+        }
+
+            .add-container h2 {
+                color: #81A1C1;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+        .form-control, .form-select {
+            background-color: #4C566A;
+            color: #D8DEE9;
+            border: 1px solid #434C5E;
+        }
+
+            .form-control::placeholder {
+                color: #B48EAD;
+            }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #81A1C1;
+                box-shadow: 0 0 5px rgba(135, 206, 241, 0.5);
+            }
+
+        .btn-primary {
+            background-color: #5E81AC;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-color: #81A1C1;
+            }
+
+        .text-danger {
+            color: #BF616A;
+        }
+    </style>
+}
+
+<div class="add-container">
+    <h2>Add New Property</h2>
+    <form asp-action="Add" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="propPrice" class="form-label">Price</label>
+            <input asp-for="propPrice" class="form-control" placeholder="Enter price" />
+            <span asp-validation-for="propPrice" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="propArea" class="form-label">Area (sqm)</label>
+            <input asp-for="propArea" class="form-control" placeholder="Enter area in sqm" />
+            <span asp-validation-for="propArea" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="probNumberOfRooms" class="form-label">Number of Rooms</label>
+            <input asp-for="probNumberOfRooms" class="form-control" placeholder="Enter number of rooms" />
+            <span asp-validation-for="probNumberOfRooms" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="propRegion" class="form-label">Region</label>
+            <input asp-for="propRegion" class="form-control" placeholder="Enter region" />
+            <span asp-validation-for="propRegion" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="propStreet" class="form-label">Street</label>
+            <input asp-for="propStreet" class="form-control" placeholder="Enter street" />
+            <span asp-validation-for="propStreet" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="propFloorNumber" class="form-label">Floor Number</label>
+            <input asp-for="propFloorNumber" class="form-control" placeholder="Enter floor number" />
+            <span asp-validation-for="propFloorNumber" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="AreaId" class="form-label">Area</label>
+            <select asp-for="AreaId" asp-items="ViewBag.AreaList" class="form-select"></select>
+            <span asp-validation-for="AreaId" class="text-danger"></span>
+        </div>
+
+        <h4 class="mt-4">Upload Images</h4>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="propImage1" class="form-label">Image 1</label>
+                <input asp-for="propImage1" type="file" class="form-control" />
+                <span asp-validation-for="propImage1" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="propImage2" class="form-label">Image 2</label>
+                <input asp-for="propImage1" type="file" class="form-control" />
+                <span asp-validation-for="propImage2" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="propImage3" class="form-label">Image 3</label>
+                <input asp-for="propImage3" type="file" class="form-control" />
+                <span asp-validation-for="propImage3" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="propImage4" class="form-label">Image 4</label>
+                <input asp-for="propImage4" type="file" class="form-control" />
+                <span asp-validation-for="propImage4" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="propImage5" class="form-label">Image 5</label>
+                <input asp-for="propImage5" type="file" class="form-control" />
+                <span asp-validation-for="propImage5" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">Post Property</button>
+            <a asp-controller="UserAccount" asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+}

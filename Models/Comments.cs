@@ -8,22 +8,21 @@ namespace Tasken2.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int commentID { get; set; } 
+        public int CommentId { get; set; }
 
         [Required]
         [StringLength(500)]
-        public string commentText { get; set; } = string.Empty; 
-
-        public DateTime commentTime { get; set; } = DateTime.Now;
+        public string CommentText { get; set; }
 
         [Required]
-        [ForeignKey("Property")]
-        public int propID { get; set; }
-        public Property Property { get; set; } 
+        public DateTime CommentTime { get; set; }
 
         [Required]
-        [ForeignKey("Person")]
-        public int personID { get; set; } 
+        public int PropertyId { get; set; }
+        public Property Property { get; set; }
+
+        [Required]
+        public int PersonId { get; set; }
         public Person Person { get; set; }
     }
 }

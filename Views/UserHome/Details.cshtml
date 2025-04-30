@@ -1,258 +1,202 @@
 ﻿@model Tasken2.Models.Property
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Property Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<head>
-    <link rel="stylesheet" type="text/css" href="~/css/Details.css" />
-
-
+@section Styles {
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <style>
         body {
-            background-color: rgba(0, 0, 0, 0.4);
-            color: white;
-            font-family: Arial, sans-serif;
+            background-color: #2E3440;
+            color: #D8DEE9;
+            font-family: "Segoe UI", Arial, sans-serif;
         }
 
-        .container {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            margin-top: 50px;
-        }
-
-        .form-label {
-            color: #ffffff;
-        }
-
-        .form-control, .form-select {
-            background-color: #333;
-            color: white;
-            border: 1px solid #555;
-        }
-
-            .form-control::placeholder, .form-select::placeholder {
-                color: #aaa;
-            }
-
-            .form-control:focus, .form-select:focus {
-                border-color: #87CEEB;
-                box-shadow: 0 0 5px rgba(135, 206, 235, 0.5);
-            }
-
-        .btn-primary {
-            background-color: #444;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
+        .details-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background-color: #3B4252;
+            padding: 1.5rem;
             border-radius: 8px;
         }
 
-        /* .btn-primary:hover {
-                        background-color: #87CEEB;
-                    } */
-
-        .text-danger {
-            color: #ff6b6b;
+        .property-header {
+            margin-bottom: 1rem;
+            color: #81A1C1;
         }
 
-        fieldset {
-            width: 60%;
-            margin: auto;
+        .carousel-inner img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .info-section, .comments-section, .ratings-section {
+            margin-top: 2rem;
+        }
+
+            .info-section dt {
+                color: #88C0D0;
+            }
+
+            .info-section dd {
+                margin-left: 0;
+                margin-bottom: 0.75rem;
+            }
+
+        .form-control, .form-select {
+            background-color: #4C566A;
+            color: #D8DEE9;
+            border: 1px solid #434C5E;
+        }
+
+            .form-control::placeholder {
+                color: #B48EAD;
+            }
+
+        .btn-primary {
+            background-color: #5E81AC;
             border: none;
         }
 
-        /* legend {
-                    color: #87CEEB;
-                    font-size: 1.5em;
-                } */
+            .btn-primary:hover {
+                background-color: #81A1C1;
+            }
 
-        /* .editor-label {
-                    margin-top: 10px;
-                    color: #87CEEB;
-                    font-weight: bold;
-                } */
-
-        .editor-field {
-            margin-bottom: 10px;
+        .btn-secondary {
+            background-color: #4C566A;
+            border: none;
         }
 
-        input[type="file"] {
-            margin-bottom: 10px;
-        }
+            .btn-secondary:hover {
+                background-color: #434C5E;
+            }
 
-        h2 {
-            margin-bottom: 20px;
-            color: #87CEEB;
+        .text-danger {
+            color: #BF616A;
         }
     </style>
-</head>
+}
 
-<h1>Property Details</h1>
+<div class="details-container">
+    <h2 class="property-header">@Model.Region, @Model.Street (Floor @Model.FloorNumber)</h2>
 
-<div class="container">
-    <div class="row">
-        <!-- Property Details -->
-        <div class="col-md-6">
-            <h4>Property Information</h4>
-            <hr />
-            <dl class="row">
-                <dt class="col-sm-4">Price </dt>
-                <dd class="col-sm-8">@Html.DisplayFor(model => model.propPrice) &pound;</dd>
-
-                <dt class="col-sm-4">Area</dt>
-                <dd class="col-sm-8">@Html.DisplayFor(model => model.propArea) M<sup>2 </sup></dd>
-
-                <dt class="col-sm-4">Number of rooms </dt>
-                <dd class="col-sm-8">@Html.DisplayFor(model => model.probNumberOfRooms)</dd>
-
-                <dt class="col-sm-4">Address</dt>
-                <dd class="col-sm-8">  @Html.DisplayFor(model => model.propRegion) , @Html.DisplayFor(model => model.propStreet)</dd>
-
-                <dt class="col-sm-4">Floor</dt>
-                <dd class="col-sm-8">@Html.DisplayFor(model => model.propFloorNumber)</dd>
-
-                <dt class="col-sm-4">Created At</dt>
-                <dd class="col-sm-8">@Html.DisplayFor(model => model.CreatedAt)</dd>
-
-                <dt class="col-sm-4">Owner</dt>
-                <dd class="col-sm-8">@Html.DisplayFor(model => model.CreatedBy.firstName) @Html.DisplayFor(model => model.CreatedBy.lastName)</dd>
-
-                <dt class="col-sm-4">Phone number</dt>
-                <dd class="col-sm-8">@Html.DisplayFor(model => model.CreatedBy.phoneNumber)</dd>
-            </dl>
-        </div>
-
-        <!-- Property Images -->
-        <div class="col-md-6">
-            <h4>Property Images</h4>
-            <hr />
-            <div id="propertyCarousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    @if (!string.IsNullOrEmpty(Model.propImage1))
-                    {
-                        <div class="carousel-item active">
-                            <img src="@Model.propImage1" class="d-block w-100" alt="Property Image 1">
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(Model.propImage2))
-                    {
-                        <div class="carousel-item">
-                            <img src="@Model.propImage2" class="d-block w-100" alt="Property Image 2">
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(Model.propImage3))
-                    {
-                        <div class="carousel-item">
-                            <img src="@Model.propImage3" class="d-block w-100" alt="Property Image 3">
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(Model.propImage4))
-                    {
-                        <div class="carousel-item">
-                            <img src="@Model.propImage4" class="d-block w-100" alt="Property Image 4">
-                        </div>
-                    }
-                    @if (!string.IsNullOrEmpty(Model.propImage5))
-                    {
-                        <div class="carousel-item">
-                            <img src="@Model.propImage5" class="d-block w-100" alt="Property Image 5">
-                        </div>
-                    }
+    <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @if (!string.IsNullOrEmpty(Model.Image1))
+            {
+                <div class="carousel-item active">
+                    <img src="~/images/@Model.Image1" alt="Image 1" />
                 </div>
-                <a class="carousel-control-prev" href="#propertyCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#propertyCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Image2))
+            {
+                <div class="carousel-item">
+                    <img src="~/images/@Model.Image2" alt="Image 2" />
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Image3))
+            {
+                <div class="carousel-item">
+                    <img src="~/images/@Model.Image3" alt="Image 3" />
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Image4))
+            {
+                <div class="carousel-item">
+                    <img src="~/images/@Model.Image4" alt="Image 4" />
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Image5))
+            {
+                <div class="carousel-item">
+                    <img src="~/images/@Model.Image5" alt="Image 5" />
+                </div>
+            }
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 
-    <div class="comments">
-        
-        <h3>Comments</h3>
+    <section class="info-section">
+        <h4>Property Information</h4>
+        <dl class="row">
+            <dt class="col-sm-4">Price</dt>
+            <dd class="col-sm-8">@Model.Price:C</dd>
+
+            <dt class="col-sm-4">Area</dt>
+            <dd class="col-sm-8">@Model.Area sqm</dd>
+
+            <dt class="col-sm-4">Rooms</dt>
+            <dd class="col-sm-8">@Model.NumberOfRooms</dd>
+
+            <dt class="col-sm-4">Published</dt>
+            <dd class="col-sm-8">@Model.CreatedAt.ToString("dd MMM yyyy")</dd>
+
+            <dt class="col-sm-4">Owner</dt>
+            <dd class="col-sm-8">@Model.CreatedBy.FullName</dd>
+
+            <dt class="col-sm-4">Contact</dt>
+            <dd class="col-sm-8">@Model.CreatedBy.phoneNumber</dd>
+        </dl>
+    </section>
+
+    <section class="comments-section">
+        <h4>Comments</h4>
         <form asp-action="AddComment" method="post">
-            <input type="hidden" name="propertyId" value="@Model.propertyID" />
-            <div class="form-group">
-                <label for="commentText">Add Comment:</label>
-                <textarea name="commentText" class="form-control" rows="3"></textarea>
+            <input type="hidden" name="propertyId" value="@Model.PropertyId" />
+            <div class="mb-3">
+                <textarea name="commentText" class="form-control" rows="3" placeholder="Add a comment..."></textarea>
             </div>
-            <div class="form-group">
-                <br />
-                <input type="submit" value="Add Comment" class="btn btn-primary" />
-            </div>
+            <button type="submit" class="btn btn-primary">Submit Comment</button>
         </form>
 
-        
-        <div>
-            @foreach (var comment in Model.comments)
+        <div class="mt-4">
+            @foreach (var c in Model.Comments)
             {
-                <div class="comment">
-                    <div class="comment-header">
-                        <span class="comment-author">@comment.Person.firstName @comment.Person.lastName</span>
-                        <span class="comment-time">@comment.commentTime.ToString("g")</span>
-                    </div>
-                    <div class="comment-body">
-                        <p>@comment.commentText</p>
-                    </div>
+                <div class="border-bottom pb-2 mb-2">
+                    <strong>@c.Person.FullName</strong> <span class="text-muted">@c.CommentTime.ToString("g")</span>
+                    <p>@c.CommentText</p>
                 </div>
             }
         </div>
-    </div>
+    </section>
 
-    <br />
-    <br />
-     <div class="ratings">
-        <h3>Ratings</h3>
+    <section class="ratings-section">
+        <h4>Ratings</h4>
+        <form asp-action="AddRating" method="post" class="mb-3">
+            <input type="hidden" name="propertyId" value="@Model.PropertyId" />
+            <div class="input-group">
+                <input type="number" name="rating" class="form-control" min="0" max="5" step="0.1" placeholder="Your rating (0-5)" />
+                <button type="submit" class="btn btn-secondary">Submit Rating</button>
+            </div>
+        </form>
+
         <div>
-            @foreach (var rating in Model.PropertyRatings)
+            @foreach (var r in Model.PropertyRatings)
             {
-                <div class="rating">
-                    <div class="rating-header">
-                        <span class="rating-author">@rating.Person.firstName @rating.Person.lastName</span>
-                        <span class="rating-time">@rating.CreatedAt.ToString("g")</span>
-                    </div>
-                    <div class="rating-body">
-                        <p>Rating: @rating.Rating</p>
-                    </div>
+                <div class="border-bottom pb-2 mb-2">
+                    <strong>@r.Person!.FullName</strong>
+                    <span class="text-muted ms-2">@r.CreatedAt.ToString("g")</span>
+                    <p>Rating: @r.Rating</p>
                 </div>
             }
         </div>
-        
-        <form asp-action="AddRating" method="post">
-            <input type="hidden" name="propertyId" value="@Model.propertyID" />
-            <div class="form-group">
-                <br />
-                <label for="rating">Add Rating:</label>
-                <input type="number" name="rating" class="form-control" min="0" max="5" step="0.1" />
-            </div>
-            <div class="form-group">
-                <br />
-                <input type="submit" value="Add Rating" class="btn btn-primary" />
-            </div>
-        </form>
-    </div> 
+    </section>
 
-    <div>
-        <br />
-        <a asp-action="Index" class="btn btn-secondary">Home</a>
+    <div class="text-end mt-4">
+        <a asp-action="Index" class="btn btn-secondary">Back to Listings</a>
     </div>
 </div>
 
 @section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 }

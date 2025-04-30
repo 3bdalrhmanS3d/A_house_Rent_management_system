@@ -9,52 +9,57 @@ namespace Tasken2.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int propertyID { get; set; }
+        public int PropertyId { get; set; }
 
         [Required]
         [Column(TypeName = "money")]
-        public decimal propPrice { get; set; }
+        public decimal Price { get; set; }
 
         [Required]
-        public float propArea { get; set; }
+        public float Area { get; set; }
 
         [Required]
-        public int probNumberOfRooms { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string propRegion { get; set; }
+        public int NumberOfRooms { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string propStreet { get; set; }
+        public string Region { get; set; }
 
         [Required]
-        public int propFloorNumber { get; set; }
+        [StringLength(50)]
+        public string Street { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Required]
+        public int FloorNumber { get; set; }
 
-        [NotMapped]
-        public IFormFile clientFile { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        public string propImage1 { get; set; }
-        public string propImage2 { get; set; }
-        public string propImage3 { get; set; }
-        public string? propImage4 { get; set; }
-        public string? propImage5 { get; set; }
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
+        public string? Image4 { get; set; }
+        public string? Image5 { get; set; }
 
-        [ForeignKey("CreatedBy")]
-        public int CreatedIDBy { get; set; }
+        [Required]
+        public int CreatedById { get; set; }
         public Person CreatedBy { get; set; }
 
-        [ForeignKey("Area")]
+        [Required]
         public int AreaId { get; set; }
-        public Area Area { get; set; }
+        public Area LocationAreaId { get; set; }
 
-        public int HireStatus { get; set; } = 0;
+        public int HireStatus { get; set; }
 
         // Navigation properties
-        public ICollection<PropertyRating>? PropertyRatings { get; set; }
-        public ICollection<Comments>? comments { get; set; }
+        public ICollection<PropertyRating> PropertyRatings { get; set; }
+        public ICollection<Comments> Comments { get; set; }
+
+        public Property()
+        {
+            CreatedAt = DateTime.UtcNow;
+            PropertyRatings = new HashSet<PropertyRating>();
+            Comments = new HashSet<Comments>();
+            HireStatus = 0;
+        }
     }
 }

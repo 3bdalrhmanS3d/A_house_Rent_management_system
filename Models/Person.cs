@@ -9,15 +9,11 @@ namespace Tasken2.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int personID { get; set; }  
+        public int PersonID { get; set; }  
 
         [Required]
-        [StringLength(50)]
-        public string firstName { get; set; } 
-
-        [Required]
-        [StringLength(50)]
-        public string lastName { get; set; } 
+        [StringLength(100)]
+        public string FullName { get; set; } 
 
         [Required]
         [StringLength(14)]
@@ -30,31 +26,31 @@ namespace Tasken2.Models
 
         [Required]
         [EmailAddress]
-        public string email { get; set; } 
+        public string email { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
-        public string password { get; set; } 
+        public string PasswordHash { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
-        [Compare("password", ErrorMessage = "Passwords does not match.")]
-        public string confirmPassword { get; set; } 
+        [StringLength(20)]
+        public string AccountType { get; set; } = "User";
 
-        [DefaultValue("user")]
-        public string accountType { get; set; } 
+        public string? NationalIdImage { get; set; }
 
-        public string? nationalIdImage { get; set; } 
+        public DateTime CreatedAt { get; set; }
 
-       
-        [NotMapped]
-        public IFormFile File { get; set; }
-        public DateTime createdAt { get; set; } = DateTime.Now; 
 
         // خصائص التنقل
-        public ICollection<Property>? Properties { get; set; }
-        public ICollection<PropertyRating>? PropertyRatings { get; set; }
-        public ICollection<Comments>? Comments { get; set; }
+        public ICollection<Property> Properties { get; set; }
+        public ICollection<PropertyRating> PropertyRatings { get; set; }
+        public ICollection<Comments> Comments { get; set; }
 
+        public Person()
+        {
+            CreatedAt = DateTime.UtcNow;
+            Properties = new HashSet<Property>();
+            PropertyRatings = new HashSet<PropertyRating>();
+            Comments = new HashSet<Comments>();
+        }
     }
 }
