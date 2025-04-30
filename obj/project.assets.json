@@ -10861,19 +10861,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Concept D\\.nuget\\packages\\": {}
+    "C:\\Users\\Concept D\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\Tasken2.csproj",
+      "projectUniqueName": "C:\\Users\\Concept D\\Source\\Repos\\A_house_Rent_management_system\\Tasken2.csproj",
       "projectName": "Tasken2",
-      "projectPath": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\Tasken2.csproj",
+      "projectPath": "C:\\Users\\Concept D\\Source\\Repos\\A_house_Rent_management_system\\Tasken2.csproj",
       "packagesPath": "C:\\Users\\Concept D\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Concept D\\OneDrive - Assuit University\\Desktop\\Tasken22\\Tasken2\\obj\\",
+      "outputPath": "C:\\Users\\Concept D\\Source\\Repos\\A_house_Rent_management_system\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\Concept D\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10893,7 +10898,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net6.0": {
@@ -10941,7 +10952,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
