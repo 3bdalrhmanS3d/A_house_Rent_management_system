@@ -1,20 +1,79 @@
 ﻿@{
-    ViewBag.Title = "Admin Panel";
+    ViewData["Title"] = "Admin Panel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    
-    th {
-        text-align: center;
-    }
 
-    
+@section Styles {
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        
+        body {
+            background-color: #1F3B4D;
+            color: #ECEFF4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-</style>
+        .admin-container {
+            padding: 2rem;
+            background-color: #2C4B5C;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 1200px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
 
-<center>
+        .nav-pills .nav-link {
+            background-color: #345A6D;
+            color: #ECEFF4;
+            border-radius: .25rem;
+            margin-right: .5rem;
+        }
+
+            .nav-pills .nav-link.active {
+                background-color: #17A2B8;
+                color: #1F3B4D;
+            }
+
+        .tab-pane {
+            margin-top: 1rem;
+        }
+
+        .btn-primary,
+        .btn-primary:focus,
+        .btn-primary:active {
+            background-color: #17A2B8;
+            border-color: #17A2B8;
+            color: #1F3B4D;
+        }
+
+            .btn-primary:hover {
+                background-color: #138496;
+                border-color: #117A8B;
+            }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #17A2B8;
+        }
+
+        /* Tables & Cards */
+        .table-admin,
+        .card-admin {
+            background-color: #345A6D;
+            color: #ECEFF4;
+            border: none;
+        }
+
+            .table-admin th,
+            .table-admin td {
+                border-color: #23414F;
+            }
+    </style>
+}
+
+<div class="admin-container">
     <h2>Admin Panel</h2>
-    <hr />
-
     @if (!string.IsNullOrEmpty(ViewBag.Message))
     {
         <div class="alert alert-success">
@@ -22,140 +81,62 @@
         </div>
     }
 
-    <div class="navbar">
-        <label><a href="/AdminPanel/Report" class="btn btn-primary btn-lg " role="button" aria-pressed="true">Report</a></label>
-        <label><a href="#ApprovedPost" class="btn btn-outline-primary">Approved Post</a></label>
-        <label><a href="#PendingPost" class="btn btn-outline-primary">Pending Post</a></label>
-        <label><a href="#Area" class="btn btn-outline-primary">Areas</a></label>
-        <label><a href="#User" class="btn btn-outline-primary">Users</a></label>
-        <label><a href="#Admin" class="btn btn-outline-primary">Admins</a></label>
-        <br />
+    <ul class="nav nav-pills mb-4" id="adminTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#approved">Approved Posts</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pending">Pending Posts</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#areas">Areas</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#users">Users</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#admins">Admins</button>
+        </li>
+        <li class="nav-item ms-auto">
+            <a asp-action="Report" class="btn btn-primary">Report</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="approved" class="tab-pane fade show active"></div>
+        <div id="pending" class="tab-pane fade"></div>
+        <div id="areas" class="tab-pane fade"></div>
+        <div id="users" class="tab-pane fade"></div>
+        <div id="admins" class="tab-pane fade"></div>
     </div>
+</div>
 
-    <hr />
-
-    <h3 id="ApprovedPost">Approved Post</h3>
-    <hr />
-    <table cellpadding="15" cellspacing="20" border="1" rules="all">
-        @foreach (var item in ViewBag.Approved)
-        {
-
-            <div class="card" style="width: 90%;">
-                <img class="card-img-top" src="@item.propImage1" alt="Card image cap" width="664px" height="200px">
-
-                <div class="card-body">
-                    <p class="card-text" > Area: @item.propArea | Price: @item.propPrice | Address: @item.propRegion , @item.propStreet</p>
-                    <a href="/UserHome/Details/@item.propertyID" class="btn btn-primary"> Details </a>
-                    <a href="/AdminPanel/DeletePost/@item.propertyID"><input type="button" value="Delete" class="btn btn-outline-danger"> </a>
-                    <a href="/AdminPanel/PendingPost/@item.propertyID"><input type="button" value="Pending" class="btn btn-outline-warning" /></a>
-                </div>
-
-            </div>
-            <br />
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function loadSection(actionName, containerId) {
+            $('#' + containerId).html("<div class='loading'>Loading...</div>");
+            $.get('/AdminPanel/' + actionName, function(html) {
+                $('#' + containerId).html(html);
+            });
         }
-    </table>
 
-    <br />
+        $(function() {
+            loadSection('ApprovedPosts', 'approved');
 
-    <h3 id="PendingPost">Pending Post</h3>
-    <hr />
-    <table cellpadding="15" cellspacing="20" border="1" rules="all">
-        @foreach (var item in ViewBag.Pending)
-        {
-
-            <div class="card" style="width: 90%;">
-                <img class="card-img-top" src="@item.propImage1" alt="Card image cap" width="664px" height="200px">
-
-                <div class="card-body">
-                    <p class="card-text"> Area: @item.propArea | Price: @item.propPrice | Address: @item.propRegion , @item.propStreet</p>
-                    <a href="/postDetail/Index/@item.propertyID" class="btn btn-primary"> Details </a>
-                    <a href= "/AdminPanel/DeletePost/@item.propertyID"><input type="button" value="Delete" class="btn btn-outline-danger"> </a>
-                    <a href="/AdminPanel/ApprovePost/@item.propertyID"><input type="button" value="Approve" class="btn btn-outline-success" /></a>
-                </div>
-
-            </div>
-            <br />
-            
-        }
-    </table>
-
-    <br />
-    <h3 id="Area">Areas</h3>
-    <hr />
-    <a href="/AdminPanel/AddArea"><input type="button" value="Add New Area" class="btn btn-outline-primary" /></a>
-    
-    <br />
-    <table cellpadding="10" cellspacing="10" border="1" rules="all">
-        @foreach (var area in ViewBag.Area)
-        {
-            <tr>
-                <td>@area.AreaName</td>
-                <td>
-                    <a href="/AdminPanel/DeleteArea/@area.Id"><input type="button" value="Delete" class="btn btn-outline-danger"> </a>
-                </td>
-            </tr>
-        }
-    </table>
-
-    <br />
-    <h3 id="User">Users</h3>
-    <hr />
-
-    @* <!-- نموذج البحث عن المستخدمين -->
-    <form method="get" href="/AdminPanel/Index/0">
-        <input type="text" name="searchString" placeholder="Search users" class="form-control" style="width: 50%; display: inline;">
-        <input type="submit" value="Search" class="btn btn-outline-primary">
-        <a href="/AdminPanel/Index" class="btn btn-outline-secondary">Clear Search</a>
-    </form> *@
-    <br />
-    <table cellpadding="15" cellspacing="20" border="1" rules="all">
-        <thead>
-            <tr >
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        @foreach (var item in ViewBag.User)
-        {
-            <tr>
-                <td>@item.firstName @item.lastName</td>
-                <td>@item.email</td>
-                <td>@item.phoneNumber</td>
-                <td>
-                    <a href="/AdminPanel/DeleteUser/@item.personID"><input type="button" value="Delete" class="btn btn-outline-danger"> </a>
-                    <a href="/AdminPanel/MakeAdmin/@item.personID"><input type="button" value="Make Admin" class="btn btn-outline-warning" > </a>
-                </td>
-            </tr>
-        }
-    </table>
-
-    <br />
-    <h3 id="Admin">Admins</h3>
-    <hr />
-    
-
-    <br />
-    <table cellpadding="15" cellspacing="20" border="1" rules="all">
-
-        <thead>
-            <tr>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        @foreach (var item in ViewBag.Admin)
-        {
-            <tr>
-                <td>@item.firstName @item.lastName</td>
-                <td>@item.email</td>
-                <td>@item.phoneNumber</td>
-                <td><a href="/AdminPanel/DeleteAdmin/@item.personID"><input type="button" value="Delete" class="btn btn-outline-danger"> </a></td>
-            </tr>
-           
-        }
-    </table>
-</center>
+            $('#adminTabs button[data-bs-toggle="pill"]').on('shown.bs.tab', function(e) {
+                var target = $(e.target).data('bs-target').substring(1);
+                var actionMap = {
+                    'approved': 'ApprovedPosts',
+                    'pending' : 'PendingPosts',
+                    'areas'   : 'ListAreas',
+                    'users'   : 'Users',
+                    'admins'  : 'Admins'
+                };
+                var action = actionMap[target] || 'ApprovedPosts';
+                loadSection(action, target);
+            });
+        });
+    </script>
+}

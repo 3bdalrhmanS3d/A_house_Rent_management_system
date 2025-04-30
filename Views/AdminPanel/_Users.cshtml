@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Tasken2.Models.Person>
+<table class="table table-admin">
+    <thead>
+        <tr><th>Name</th><th>Email</th><th>Phone</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.FullName</td>
+                <td>@u.email</td>
+                <td>@u.phoneNumber</td>
+                <td>
+                    <form asp-action="DeleteUser" method="post" class="d-inline">
+                        <button type="submit" name="id" value="@u.PersonID" class="btn btn-outline-danger btn-sm">Delete</button>
+                    </form>
+                    <form asp-action="MakeAdmin" method="post" class="d-inline">
+                        <button type="submit" name="id" value="@u.PersonID" class="btn btn-outline-warning btn-sm">Make Admin</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

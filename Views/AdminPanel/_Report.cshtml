@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        /* Nord Theme */
+        body {
+            background-color: #2E3440;
+            color: #D8DEE9;
+        }
+
+        .report-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #3B4252;
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #81A1C1;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        table, th, td {
+            border: 1px solid #434C5E;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4C566A;
+            color: #ECEFF4;
+        }
+
+        td {
+            background-color: #434C5E;
+        }
+
+        a.btn-back {
+            color: #D8DEE9;
+            background-color: #5E81AC;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+            a.btn-back:hover {
+                background-color: #81A1C1;
+                color: #2E3440;
+            }
+    </style>
+}
+
+<div class="report-container">
+    <h2>Report</h2>
+    <table>
+        <tr>
+            <th>Most House Available In Area</th>
+            <td>@ViewBag.AreaName</td>
+        </tr>
+        <tr>
+            <th>Most Visited IP</th>
+            <td>@ViewBag.Ip</td>
+        </tr>
+        <tr>
+            <th>Most Searched Keyword</th>
+            <td>@ViewBag.KeyWord</td>
+        </tr>
+    </table>
+    <div class="text-center">
+        <a asp-action="Index" class="btn-back">Back to Admin Panel</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+}

@@ -1,29 +1,99 @@
 ﻿@model Tasken2.Models.Area
-
 @{
-    ViewBag.Title = "Add Area";
+    ViewData["Title"] = "Add Area";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Add Area</h2>
-<hr />
+@section Styles {
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        /* Nord Theme */
+        body {
+            background-color: #2E3440;
+            color: #D8DEE9;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
 
-<form asp-action="AddArea" method="post">
-    <div class="form-group">
-        <label for="AreaName">Area Name</label>
-        <input type="text" id="AreaName" name="AreaName" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="SurroundingArea">Surrounding Area</label>
-        <input type="text" id="SurroundingArea" name="SurroundingArea" class="form-control" required />
-    </div>
+        .add-area-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            background-color: #3B4252;
+            padding: 2rem;
+            border-radius: 8px;
+        }
 
-    <br />
-    <button type="submit" class="btn btn-primary">Add </button>
+        h2 {
+            color: #81A1C1;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
 
+        .form-label {
+            color: #ECEFF4;
+        }
 
-</form>
+        .form-control {
+            background-color: #4C566A;
+            color: #ECEFF4;
+            border: 1px solid #434C5E;
+        }
 
+            .form-control::placeholder {
+                color: #B48EAD;
+            }
 
-<div>
-    <a href="/AdminPanel/Index><input type=" button" value="Admin Panel" class="btn btn-primary> </a>
+            .form-control:focus {
+                border-color: #81A1C1;
+                box-shadow: 0 0 5px rgba(129,161,193,0.5);
+            }
+
+        .btn-primary {
+            background-color: #5E81AC;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-color: #81A1C1;
+            }
+
+        .btn-secondary {
+            background-color: #434C5E;
+            border: none;
+        }
+
+            .btn-secondary:hover {
+                background-color: #4C566A;
+            }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 1rem;
+        }
+    </style>
+}
+
+<div class="add-area-container">
+    <h2>Add New Area</h2>
+    <form asp-action="AddArea" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label asp-for="AreaName" class="form-label">Area Name</label>
+            <input asp-for="AreaName" class="form-control" placeholder="Enter area name" />
+            <span asp-validation-for="AreaName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="SurroundingArea" class="form-label">Surrounding Area</label>
+            <input asp-for="SurroundingArea" class="form-control" placeholder="Enter surrounding area" />
+            <span asp-validation-for="SurroundingArea" class="text-danger"></span>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Add Area</button>
+            <a asp-action="Index" class="btn btn-secondary btn-back">Back to Panel</a>
+        </div>
+    </form>
 </div>
+
+@section Scripts {
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}

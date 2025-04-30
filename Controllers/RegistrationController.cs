@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Tasken2.Controllers.DTOs;
 using Tasken2.DBContext;
 using Tasken2.Models;
 
@@ -9,131 +12,122 @@ namespace Tasken2.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _host;
-        public RegistrationController(AppDbContext context, IWebHostEnvironment host)
+        private readonly IPasswordHasher<Person> _passwordHasher;
+
+        public RegistrationController(AppDbContext context,
+                                      IWebHostEnvironment host,
+                                      IPasswordHasher<Person> passwordHasher)
         {
             _context = context;
             _host = host;
+            _passwordHasher = passwordHasher;
         }
-        public class Input
-        {
 
-            [Required]
-            [StringLength(50)]
-            public string firstName { get; set; } // الاسم الأول
-
-            [Required]
-            [StringLength(50)]
-            public string lastName { get; set; } // الاسم الثاني
-
-            [Required]
-            [StringLength(14)]
-            public string nationalID { get; set; } // رقم البطاقة الشخصية
-
-            [Required]
-            [StringLength(14)]
-            [RegularExpression(@"^[0-9]{11}$", ErrorMessage = "Invalid Phone Number")]
-            public string phoneNumber { get; set; } // رقم الهاتف
-
-            [Required]
-            [EmailAddress]
-            public string email { get; set; } // البريد الإلكتروني
-
-            [Required]
-            [DataType(DataType.Password)]
-            public string password { get; set; } // كلمة المرور
-
-            [Required]
-            [DataType(DataType.Password)]
-            [Compare("password", ErrorMessage = "Passwords does not match.")]
-            public string confirmPassword { get; set; } // تأكيد كلمة المرور
-            public IFormFile img_file { get; set; }
-
-
-        }
-        [BindProperty]
-        public Input input { get; set; }
         // GET: /Registration/
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.message = "";
             return View();
         }
 
         // POST: /Registration/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index(PersonInput input)
         {
-            Person person = new Person();
+            if (!ModelState.IsValid)
+                return View(input);
 
-
-            if (input.img_file != null && input.img_file.Length > 0)
+            bool exists = await _context.Persons
+                                 .AnyAsync(u => u.email == input.email);
+            if (exists)
             {
-                try
-                {
-                    // Get the wwwroot path
-                    string uploadPath = Path.Combine(_host.WebRootPath, "images");
-                    Directory.CreateDirectory(uploadPath);
-                    // Generate a unique filename for the uploaded file
-                    string newfilename = $"{Guid.NewGuid().ToString()}{Path.GetExtension(input.img_file.FileName)}";
-                    string fileName = Path.Combine(uploadPath, newfilename);
-
-                    // Save the file to the server
-                    using (var fileStream = new FileStream(fileName, FileMode.Create))
-                    {
-                        input.img_file.CopyTo(fileStream);
-                    }
-                    person.nationalIdImage = Path.Combine("/images/", newfilename);
-                    //TempData["ImagePath"] = Person.nationalIdImage;
-
-                }
-                catch (Exception ex)
-                {
-                    // Handle exceptions
-                    return StatusCode(StatusCodes.Status500InternalServerError, "Error uploading file: " + ex.Message);
-                }
+                ModelState.AddModelError(string.Empty, "User already exists.");
+                return View(input);
             }
 
-
-            if (ModelState.IsValid)
+            var person = new Person
             {
-                var existingPerson = _context.persons.SingleOrDefault(x => x.email == person.email);
-                if (existingPerson != null)
+                FullName = $"{input.FirstName} {input.LastName}",
+                nationalID = input.nationalID,
+                phoneNumber = input.phoneNumber,
+                email = input.email,
+                PasswordHash = _passwordHasher.HashPassword(null, input.password),
+                AccountType = "user",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            if (input.NationalIdImageFile != null && input.NationalIdImageFile.Length > 0)
+            {
+                string uploads = Path.Combine(_host.WebRootPath, "images");
+                Directory.CreateDirectory(uploads);
+                string filename = Guid.NewGuid() + Path.GetExtension(input.NationalIdImageFile.FileName);
+                string filePath = Path.Combine(uploads, filename);
+                using var stream = new FileStream(filePath, FileMode.Create);
+                await input.NationalIdImageFile.CopyToAsync(stream);
+                person.NationalIdImage = "/images/" + filename;
+            }
+
+            _context.Persons.Add(person);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Login");
+        }
+
+        [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)] //to hide this action from the Swagger/Explorer
+        public async Task<IActionResult> SeedUsers()
+        {
+            //raw data
+            var seedData = new[]
+            {
+                new { First = "John",    Last = "Doe",        NationalID = "12345678901234", Phone = "12345678901", Email = "john.doe@example.com",        Password = "password123" },
+                new { First = "Jane",    Last = "Smith",      NationalID = "23456789012345", Phone = "23456789012", Email = "jane.smith@example.com",      Password = "password123" },
+                new { First = "Michael", Last = "Johnson",    NationalID = "34567890123456", Phone = "34567890123", Email = "michael.johnson@example.com",Password = "password123" },
+                new { First = "Alice",   Last = "Williams",   NationalID = "45678901234567", Phone = "45678901234", Email = "alice.williams@example.com", Password = "password123" },
+                new { First = "Bob",     Last = "Brown",      NationalID = "56789012345678", Phone = "56789012345", Email = "bob.brown@example.com",       Password = "password123" },
+                new { First = "Carol",   Last = "Davis",      NationalID = "67890123456789", Phone = "67890123456", Email = "carol.davis@example.com",     Password = "password123" },
+                new { First = "David",   Last = "Miller",     NationalID = "78901234567890", Phone = "78901234567", Email = "david.miller@example.com",    Password = "password123" },
+                new { First = "Eve",     Last = "Wilson",     NationalID = "89012345678901", Phone = "89012345678", Email = "eve.wilson@example.com",      Password = "password123" },
+                new { First = "Frank",   Last = "Moore",      NationalID = "90123456789012", Phone = "90123456789", Email = "frank.moore@example.com",     Password = "password123" },
+                new { First = "Grace",   Last = "Taylor",     NationalID = "12345678901234", Phone = "12345678901", Email = "grace.taylor@example.com",   Password = "password123" },
+                new { First = "Hank",    Last = "Anderson",   NationalID = "23456789012345", Phone = "23456789012", Email = "hank.anderson@example.com", Password = "password123" },
+                new { First = "Ivy",     Last = "Thomas",     NationalID = "34567890123456", Phone = "34567890123", Email = "ivy.thomas@example.com",     Password = "password123" },
+                new { First = "Jack",    Last = "Jackson",    NationalID = "45678901234567", Phone = "45678901234", Email = "jack.jackson@example.com",   Password = "password123" },
+                new { First = "Kathy",   Last = "White",      NationalID = "56789012345678", Phone = "56789012345", Email = "kathy.white@example.com",  Password = "password123" },
+                new { First = "Leo",     Last = "Harris",     NationalID = "67890123456789", Phone = "67890123456", Email = "leo.harris@example.com",    Password = "password123" },
+                new { First = "Mia",     Last = "Martin",     NationalID = "78901234567890", Phone = "78901234567", Email = "mia.martin@example.com",    Password = "password123" },
+                new { First = "Nina",    Last = "Thompson",   NationalID = "89012345678901", Phone = "89012345678", Email = "nina.thompson@example.com",Password = "password123" },
+                new { First = "Oscar",   Last = "Garcia",     NationalID = "90123456789012", Phone = "90123456789", Email = "oscar.garcia@example.com",  Password = "password123" },
+                new { First = "Pam",     Last = "Martinez",   NationalID = "12345678901234", Phone = "12345678901", Email = "pam.martinez@example.com", Password = "password123" },
+                new { First = "Quinn",   Last = "Robinson",   NationalID = "23456789012345", Phone = "23456789012", Email = "quinn.robinson@example.com",Password = "password123" },
+                new { First = "Rita",    Last = "Clark",      NationalID = "34567890123456", Phone = "34567890123", Email = "rita.clark@example.com",    Password = "password123" },
+                new { First = "Steve",   Last = "Rodriguez",  NationalID = "45678901234567", Phone = "45678901234", Email = "steve.rodriguez@example.com",Password = "password123" },
+                new { First = "Tina",    Last = "Lewis",      NationalID = "56789012345678", Phone = "56789012345", Email = "tina.lewis@example.com",    Password = "password123" }
+            };
+
+            foreach (var u in seedData)
+            {
+                if (await _context.Persons.AnyAsync(p => p.email == u.Email))
+                    continue;
+
+                var person = new Person
                 {
-                    ViewBag.message = "User already exists";
-
-
-                    return RedirectToAction("Index", "Login");
-                }
-
-                person = new Person
-                {
-                    firstName = input.firstName,
-                    lastName = input.lastName,
-                    nationalID = input.nationalID,
-                    phoneNumber = input.phoneNumber,
-                    email = input.email,
-                    password = input.password,
-                    confirmPassword = input.confirmPassword,
-                    nationalIdImage = input.nationalID,
-                    accountType = "user",
-                    createdAt = DateTime.Now
+                    FullName = $"{u.First} {u.Last}",
+                    nationalID = u.NationalID,
+                    phoneNumber = u.Phone,
+                    email = u.Email,
+                    PasswordHash = _passwordHasher.HashPassword(null, u.Password),
+                    AccountType = "User",
+                    CreatedAt = DateTime.UtcNow
                 };
 
-
-                _context.persons.Add(person);
-                _context.SaveChanges();
-                ViewBag.message = "Registration successful";
-                return RedirectToAction("Index", "Login");
-            }
-            else
-            {
-                ViewBag.message = "Registration fail";
-                return View(person);
+                _context.Persons.Add(person);
             }
 
-
+            await _context.SaveChangesAsync();
+            return Content("✅ The default users were created successfully.");
         }
+
     }
 }

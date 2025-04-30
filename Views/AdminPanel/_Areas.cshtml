@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Tasken2.Models.Area>
+<table class="table table-admin">
+    <thead>
+        <tr><th>Name</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.AreaName</td>
+                <td>
+                    <form asp-action="DeleteArea" method="post" class="d-inline">
+                        <button type="submit" name="id" value="@a.Id" class="btn btn-outline-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

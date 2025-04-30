@@ -1,13 +1,10 @@
-﻿@{
+﻿@model Tasken2.Controllers.DTOs.LoginInput
+@{
     ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Taskeen</title>
+@section Styles {
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <style>
         body {
@@ -16,121 +13,110 @@
             font-family: Arial, sans-serif;
         }
 
-        .container {
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-form {
             background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
+            padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            margin-top: 50px;
+            width: 100%;
+            max-width: 400px;
         }
 
-        .form-label {
-            color: #ffffff;
-        }
+            .login-form h2 {
+                color: #87CEEB;
+                margin-bottom: 1.5rem;
+                text-align: center;
+            }
 
-        .form-control, .form-select {
+        .form-control {
             background-color: #333;
             color: white;
             border: 1px solid #555;
         }
 
-            .form-control::placeholder, .form-select::placeholder {
+            .form-control::placeholder {
                 color: #aaa;
             }
 
-            .form-control:focus, .form-select:focus {
+            .form-control:focus {
                 border-color: #87CEEB;
                 box-shadow: 0 0 5px rgba(135, 206, 235, 0.5);
             }
+
+        .form-check-input {
+            background-color: #333;
+            border: 1px solid #555;
+        }
+
+        .form-check-label {
+            color: white;
+        }
 
         .btn-primary {
             background-color: #444;
             border: none;
             color: white;
             padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
             font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
             border-radius: 8px;
         }
 
-        /* .btn-primary:hover {
-                        background-color: #87CEEB;
-                    } */
+            .btn-primary:hover {
+                background-color: #87CEEB;
+            }
 
         .text-danger {
             color: #ff6b6b;
         }
 
-        fieldset {
-            width: 60%;
-            margin: auto;
-            border: none;
-        }
-
-        /* legend {
-                    color: #87CEEB;
-                    font-size: 1.5em;
-                } */
-
-        /* .editor-label {
-                    margin-top: 10px;
-                    color: #87CEEB;
-                    font-weight: bold;
-                } */
-
-        .editor-field {
-            margin-bottom: 10px;
-        }
-
-        input[type="file"] {
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            color: #87CEEB;
+        .no-underline {
+            text-decoration: none;
         }
     </style>
-</head>
-<body>
-    <div class="login-container">
-        <div class="login-form">
-            <h2 class="text-center">Login</h2>
-            <fieldset>
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+}
 
-                    <div class="form-group">
-                        @Html.Label("Email")
-                        @Html.TextBox("email", null, new { @class = "form-control" })
-                    </div>
+<div class="login-container">
+    <div class="login-form">
+        <h2>Login</h2>
+        <form asp-action="Index" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-                    <div class="form-group">
-                        @Html.Label("Password")
-                        @Html.Password("password", null, new { @class = "form-control" })
-                    </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
 
-                    <br />
+            <div class="form-check mb-3">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
+            </div>
 
-                    <div class="form-group text-center">
-                        <input type="submit" value="Login" class="btn btn-primary" />
-                    </div>
-                }
-
-                <br />
-
-                <div class="text-center">
-                    @Html.ActionLink("Create new account ?", "Index", "Registration", null, new { @class = "no-underline" })
-                </div>
-                <p class="text-center text-red">@ViewBag.Message</p>
-            </fieldset>
-        </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            <div class="text-center mt-3">
+                <a asp-controller="Registration" asp-action="Index" class="text-info no-underline">
+                    Create new account?
+                </a>
+            </div>
+        </form>
     </div>
-</body>
-</html>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

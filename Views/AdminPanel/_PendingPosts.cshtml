@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Tasken2.Models.Property>
+@using (Html.BeginForm("ApproveAllPost", "AdminPanel", FormMethod.Post, new { @class = "mb-4" }))
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-success">
+        Approve All Pending Posts
+    </button>
+}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card card-admin mb-4">
+                <img src="~/images/@item.Image1" class="card-img-top" alt="" style="height:200px; object-fit:cover;">
+                <div class="card-body">
+                    <p><strong>Area:</strong> @item.Area &nbsp; <strong>Price:</strong> @item.Price:C</p>
+
+                    <a asp-action="Details" asp-controller="UserHome" asp-route-id="@item.PropertyId" class="btn btn-outline-light btn-sm">Details</a>
+                    <form asp-action="DeletePost" method="post" class="d-inline">
+                        <button type="submit" name="id" value="@item.PropertyId" class="btn btn-outline-danger btn-sm">Delete</button>
+                    </form>
+                    <form asp-action="ApprovePost" method="post" class="d-inline">
+                        <button type="submit" name="id" value="@item.PropertyId" class="btn btn-outline-success btn-sm">Approve</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
