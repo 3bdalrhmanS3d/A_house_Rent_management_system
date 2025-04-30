@@ -1,79 +1,91 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using System.Linq;
-using System.Text.Json;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Tasken2.Controllers.DTOs;
 using Tasken2.DBContext;
 using Tasken2.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace Tasken2.Controllers
 {
     public class LoginController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IPasswordHasher<Person> _passwordHasher;
 
-        public LoginController(AppDbContext context)
+        public LoginController(AppDbContext context, IPasswordHasher<Person> passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
 
-        // GET: /Login/
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            if (HttpContext.Session.GetString("Login") != null)
+            // Auto-login via cookies
+            if (HttpContext.Session.GetString("Login") == null
+                && Request.Cookies.TryGetValue("RememberMeEmail", out var cookieEmail)
+                && Request.Cookies.TryGetValue("RememberMePassword", out var cookiePwd))
             {
-                return RedirectToAction("Index", "UserHome");
-            }
-            ViewBag.Message = "";
-            return View();
-        }
-
-        // POST: /Login/
-        [HttpPost]
-        public IActionResult Index(string email, string password)
-        {
-            var person = _context.persons.SingleOrDefault(x => x.email == email && x.password == password);
-
-            if (person != null)
-            {
-                // تحقق مما إذا كان المستخدم محظوراً
-                var banUntilString = HttpContext.Session.GetString($"BanUntil_{person.email}");
-                if (!string.IsNullOrEmpty(banUntilString))
+                var person = await _context.Persons.SingleOrDefaultAsync(u => u.email == cookieEmail);
+                if (person != null &&
+                    _passwordHasher.VerifyHashedPassword(person, person.PasswordHash, cookiePwd)
+                        != PasswordVerificationResult.Failed)
                 {
-                    var banUntil = DateTime.Parse(banUntilString);
-                    if (banUntil > DateTime.Now)
-                    {
-                        ViewBag.Message = $"Your account is banned until {banUntil}";
-                        return View();
-                    }
-                }
-
-                HttpContext.Session.SetString("Login", "true");
-                HttpContext.Session.SetString("FullName", person.firstName + " " + person.lastName);
-                HttpContext.Session.SetString("UserStatus", person.accountType);
-                HttpContext.Session.Set("CurrentLoginUser", JsonSerializer.SerializeToUtf8Bytes(person));
-                HttpContext.Session.SetString("Message", $"Welcome {person.firstName} {person.lastName}");
-
-                if (person.accountType == "admin")
-                {
-                    return RedirectToAction("Index", "AdminPanel");
-                }
-                else
-                {
+                    HttpContext.Session.SetString("Login", "true");
+                    HttpContext.Session.SetString("FullName", person.FullName);
+                    HttpContext.Session.SetString("UserStatus", person.AccountType);
+                    HttpContext.Session.SetInt32("CurrentLoginUser", person.PersonID);
                     return RedirectToAction("Index", "UserHome");
                 }
             }
-            else
-            {
-                ViewBag.Message = "Invalid Email or Password";
-                return View();
-            }
+            return View();
         }
 
-        // Logout
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(LoginInput input)
+        {
+            if (!ModelState.IsValid)
+                return View(input);
+
+            var person = await _context.Persons.SingleOrDefaultAsync(u => u.email == input.Email);
+            if (person == null ||
+                _passwordHasher.VerifyHashedPassword(person, person.PasswordHash, input.Password)
+                    == PasswordVerificationResult.Failed)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                return View(input);
+            }
+
+            HttpContext.Session.SetString("Login", "true");
+            HttpContext.Session.SetString("FullName", person.FullName);
+            HttpContext.Session.SetString("UserStatus", person.AccountType);
+            HttpContext.Session.SetInt32("CurrentLoginUser", person.PersonID);
+
+            if (input.RememberMe)
+            {
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddDays(7),
+                    HttpOnly = true,
+                    Secure = true,
+                    IsEssential = true
+                };
+                Response.Cookies.Append("RememberMeEmail", input.Email, cookieOptions);
+                Response.Cookies.Append("RememberMePassword", input.Password, cookieOptions);
+            }
+
+            return RedirectToAction("Index", "UserHome");
+        }
+
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+            Response.Cookies.Delete("RememberMeEmail");
+            Response.Cookies.Delete("RememberMePassword");
             return RedirectToAction("Index", "Home");
         }
     }

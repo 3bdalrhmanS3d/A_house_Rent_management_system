@@ -17,398 +17,243 @@ namespace Tasken2.Controllers
         {
             _context = context;
         }
-
+        private bool IsAdmin()
+        {
+            return HttpContext.Session.GetString("Login") == "true"
+                && HttpContext.Session.GetString("UserStatus") == "admin";
+        }
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
-            {
+            if (!IsAdmin())
                 return RedirectToAction("Index", "Login");
-            }
 
-            string temp = HttpContext.Session.GetString("Message");
-            HttpContext.Session.SetString("Message", "");
-            ViewBag.Message = temp;
-
-            var properties = _context.properties.AsQueryable();
-            var users = _context.persons.Where(p => p.accountType == "user").AsQueryable();
-            var admins = _context.persons.Where(p => p.accountType == "admin").AsQueryable();
-            var areas = _context.Areas.AsQueryable();
-
-            
-            ViewBag.Approved = properties
-                .Where(p => p.HireStatus == 1)
-                .OrderByDescending(p => p.CreatedAt)
-                .ToList();
-
-            ViewBag.Pending = properties
-                .Where(p => p.HireStatus == 0)
-                .OrderByDescending(p => p.CreatedAt)
-                .ToList();
-
-            ViewBag.Area = areas
-                .OrderByDescending(a => a.Id)
-                .ToList();
-
-            ViewBag.User = users
-                .OrderByDescending(u => u.personID)
-                .Select(u => new {
-                    u.personID,
-                    u.firstName,
-                    u.lastName,
-                    u.nationalID,
-                    u.phoneNumber,
-                    u.email,
-                    u.accountType,
-                    u.nationalIdImage
-                })
-                .ToList();
-
-            ViewBag.Admin = admins
-                .OrderByDescending(a => a.personID)
-                .ToList();
-
+            ViewBag.Message = HttpContext.Session.GetString("Message");
+            HttpContext.Session.Remove("Message");
             return View();
         }
-
-
-        public IActionResult Search(int t, string searchString)
+        [HttpGet]
+        public async Task<IActionResult> ApprovedPosts()
         {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            string temp = HttpContext.Session.GetString("Message");
-            HttpContext.Session.SetString("Message", "");
-            ViewBag.Message = temp;
-
-            var properties = _context.properties.AsQueryable();
-            var users = _context.persons.Where(p => p.accountType == "user").AsQueryable();
-            var admins = _context.persons.Where(p => p.accountType == "admin").AsQueryable();
-            var areas = _context.Areas.AsQueryable();
-
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                if (t == 1)
-                {
-                    admins = admins.Where(a => a.firstName.Contains(searchString) || a.lastName.Contains(searchString) || a.email.Contains(searchString));
-                }
-                else
-                {
-                    users = users.Where(u => u.firstName.Contains(searchString) || u.lastName.Contains(searchString) || u.email.Contains(searchString));
-                }
-            }
-
-            ViewBag.Approved = properties
+            if (!IsAdmin()) return Unauthorized();
+            var approved = await _context.Properties
                 .Where(p => p.HireStatus == 1)
                 .OrderByDescending(p => p.CreatedAt)
-                .ToList();
+                .ToListAsync();
+            return PartialView("_ApprovedPosts", approved);
+        }
 
-            ViewBag.Pending = properties
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApproveAllPost()
+        {
+            var pending = await _context.Properties
+                                .Where(p => p.HireStatus == 0)
+                                .ToListAsync();
+
+            foreach (var post in pending)
+            {
+                post.HireStatus = 1;
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PendingPosts()
+        {
+            if (!IsAdmin()) return Unauthorized();
+            var pending = await _context.Properties
                 .Where(p => p.HireStatus == 0)
                 .OrderByDescending(p => p.CreatedAt)
-                .ToList();
+                .ToListAsync();
+            return PartialView("_PendingPosts", pending);
+        }
 
-            ViewBag.Area = areas
-                .OrderByDescending(a => a.Id)
-                .ToList();
+        [HttpGet]
+        public async Task<IActionResult> Users(string search = null)
+        {
+            if (!IsAdmin()) return Unauthorized();
+            var users = _context.Persons
+                .Where(p => p.AccountType == "user");
+            if (!string.IsNullOrEmpty(search))
+            {
+                users = users.Where(u => u.FullName.Contains(search) || u.email.Contains(search));
+            }
+            var list = await users.OrderByDescending(u => u.PersonID).ToListAsync();
+            return PartialView("_Users", list);
+        }
 
-            ViewBag.User = users
-                .OrderByDescending(u => u.personID)
-                .Select(u => new {
-                    u.personID,
-                    u.firstName,
-                    u.lastName,
-                    u.nationalID,
-                    u.phoneNumber,
-                    u.email,
-                    u.accountType,
-                    u.nationalIdImage
-                })
-                .ToList();
-
-            ViewBag.Admin = admins
-                .OrderByDescending(a => a.personID)
-                .ToList();
-
-            
-
-            return View();
+        [HttpGet]
+        public async Task<IActionResult> Admins(string search = null)
+        {
+            if (!IsAdmin()) return Unauthorized();
+            var admins = _context.Persons
+                .Where(p => p.AccountType == "admin");
+            if (!string.IsNullOrEmpty(search))
+            {
+                admins = admins.Where(a => a.FullName.Contains(search) || a.email.Contains(search));
+            }
+            var list = await admins.OrderByDescending(a => a.PersonID).ToListAsync();
+            return PartialView("_Admins", list);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> AddComment(int propertyId, string commentText)
+        public async Task<IActionResult> ApprovePost(int id)
         {
-            if (HttpContext.Session.GetString("Login") == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            var currentUser = JsonSerializer.Deserialize<Person>(HttpContext.Session.GetString("CurrentLoginUser"));
-
-            var comment = new Comments
-            {
-                commentText = commentText,
-                propID = propertyId,
-                personID = currentUser.personID,
-                commentTime = DateTime.Now
-            };
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Comments.Add(comment);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Details", new { id = propertyId });
-                }
-                catch (DbUpdateException ex)
-                {
-                    // Log the exception or handle it as needed
-                    Console.WriteLine($"An error occurred while saving the comment: {ex.Message}");
-                    return BadRequest("An error occurred while saving the comment.");
-                }
-            }
-
-            var property = await _context.properties
-                .Include(p => p.CreatedBy)
-                .Include(p => p.comments)
-                    .ThenInclude(c => c.Person)
-                .Include(p => p.PropertyRatings)
-                    .ThenInclude(r => r.Person)
-                .FirstOrDefaultAsync(p => p.propertyID == propertyId);
-
-            if (property == null)
-            {
-                return NotFound();
-            }
-
-            // ترتيب التعليقات والتقييمات حسب الأحدث
-            property.comments = property.comments.OrderByDescending(c => c.commentTime).ToList();
-            property.PropertyRatings = property.PropertyRatings.OrderByDescending(r => r.CreatedAt).ToList();
-
-            return View("Details", property);
-        }
-
-
-        public IActionResult DeletePost(int id)
-        {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            var post = _context.properties.SingleOrDefault(p => p.propertyID == id);
-            if (post != null)
-            {
-                _context.properties.Remove(post);
-                _context.SaveChanges();
-                HttpContext.Session.SetString("Message", "Post Deleted");
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult Report()
-        {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            var maxArea = _context.properties
-                .Where(p => p.HireStatus == 0)
-                .ToList()
-                .GroupBy(p => p.AreaId)
-                .OrderByDescending(g => g.Count())
-                .FirstOrDefault();
-
-            ViewBag.AreaName = maxArea != null ? _context.Areas.SingleOrDefault(a => a.Id == maxArea.Key).AreaName : "N/A";
-
-            var topKeyword = _context.searchHistories
-                .ToList()
-                .GroupBy(s => s.KeyWord)
-                .OrderByDescending(g => g.Count())
-                .FirstOrDefault();
-
-            ViewBag.KeyWord = topKeyword?.Key ?? "N/A";
-
-            var topIp = _context.searchHistories
-                .ToList()
-                .GroupBy(s => s.Ip)
-                .OrderByDescending(g => g.Count())
-                .FirstOrDefault();
-
-            ViewBag.Ip = topIp?.Key ?? "N/A";
-
-            return View();
-        }
-
-        public IActionResult ApprovePost(int id)
-        {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            var post = _context.properties.SingleOrDefault(p => p.propertyID == id);
+            if (!IsAdmin()) return Unauthorized();
+            var post = await _context.Properties.FindAsync(id);
             if (post != null)
             {
                 post.HireStatus = 1;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 HttpContext.Session.SetString("Message", "Post Approved");
             }
-
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult PendingPost(int id)
+        [HttpPost]
+        public async Task<IActionResult> PendingPost(int id)
         {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            var post = _context.properties.SingleOrDefault(p => p.propertyID == id);
+            if (!IsAdmin()) return Unauthorized();
+            var post = await _context.Properties.FindAsync(id);
             if (post != null)
             {
                 post.HireStatus = 0;
-                _context.SaveChanges();
-                HttpContext.Session.SetString("Message", "Post set to Pending");
+                await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("Message", "Post Set to Pending");
             }
-
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult ApprovedPostCommentsCount()
+        [HttpPost]
+        public async Task<IActionResult> DeletePost(int id)
         {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
+            if (!IsAdmin()) return Unauthorized();
+            var post = await _context.Properties.FindAsync(id);
+            if (post != null)
             {
-                return RedirectToAction("Index", "Login");
+                _context.Properties.Remove(post);
+                await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("Message", "Post Deleted");
             }
-
-            var approvedPostsCommentsCount = _context.properties
-                .Where(p => p.HireStatus == 1)
-                .Select(p => new
-                {
-                    p.propertyID,
-                    CommentsCount = p.comments.Count
-                })
-                .ToList();
-
-            ViewBag.ApprovedPostsCommentsCount = approvedPostsCommentsCount;
-
-            return View();
+            return RedirectToAction(nameof(Index));
         }
-
 
         [HttpGet]
         public IActionResult AddArea()
         {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            if (!IsAdmin()) return RedirectToAction("Index", "Login");
+            return PartialView("_AddArea");
+        }
 
-            return View();
+        [HttpGet]
+        public async Task<IActionResult> ListAreas()
+        {
+            if (!IsAdmin()) return Unauthorized();
+            var areas = await _context.Areas.ToListAsync();
+            return PartialView("_AreasList", areas);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> AddArea(Area area)
+        {
+            if (!IsAdmin()) return Unauthorized();
+            _context.Areas.Add(area);
+            await _context.SaveChangesAsync();
+            HttpContext.Session.SetString("Message", "New Area Added");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        public IActionResult AddArea(Area area)
+        public async Task<IActionResult> DeleteArea(int id)
         {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            _context.Areas.Add(area);
-            _context.SaveChanges();
-            HttpContext.Session.SetString("Message", "New Area Added");
-
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult DeleteArea(int id)
-        {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            var area = _context.Areas.SingleOrDefault(a => a.Id == id);
+            if (!IsAdmin()) return Unauthorized();
+            var area = await _context.Areas.FindAsync(id);
             if (area != null)
             {
                 _context.Areas.Remove(area);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 HttpContext.Session.SetString("Message", "Area Deleted");
             }
-
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult DeleteUser(int id)
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            if (!IsAdmin()) return Unauthorized();
+            var user = await _context.Persons.FindAsync(id);
 
-            var user = _context.persons.SingleOrDefault(p => p.personID == id);
             if (user != null)
             {
-                var properties = _context.properties.Where(p => p.CreatedIDBy == id).ToList();
-                var comments = _context.Comments.Where(c => c.personID == id).ToList();
-                var ratings = _context.PropertyRatings.Where(r => r.personID == id).ToList();
-
-                _context.properties.RemoveRange(properties);
+                var props = _context.Properties.Where(p => p.CreatedBy.PersonID == id);
+                var comments = _context.Comments.Where(c => c.Person.PersonID == id);
+                var ratings = _context.PropertyRatings.Where(r => r.Person.PersonID == id);
+                _context.Properties.RemoveRange(props);
                 _context.Comments.RemoveRange(comments);
                 _context.PropertyRatings.RemoveRange(ratings);
-                _context.persons.Remove(user);
-                _context.SaveChanges();
-
-                HttpContext.Session.SetString("Message", "User and related data Deleted");
+                _context.Persons.Remove(user);
+                await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("Message", "User and Data Deleted");
             }
-
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult MakeAdmin(int id)
+        [HttpPost]
+        public async Task<IActionResult> MakeAdmin(int id)
         {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            var user = _context.persons.SingleOrDefault(p => p.personID == id);
+            if (!IsAdmin()) return Unauthorized();
+            var user = await _context.Persons.FindAsync(id);
             if (user != null)
             {
-                user.accountType = "admin";
-                _context.SaveChanges();
-                HttpContext.Session.SetString("Message", "New Admin Added");
+                user.AccountType = "admin";
+                await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("Message", "Admin Role Granted");
             }
-
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult DeleteAdmin(int id)
+        [HttpPost]
+        public async Task<IActionResult> DeleteAdmin(int id)
         {
-            if (HttpContext.Session.GetString("Login") != "true" || HttpContext.Session.GetString("UserStatus") != "admin")
+            if (!IsAdmin()) return Unauthorized();
+            var admin = await _context.Persons.FindAsync(id);
+
+            var currentUser = HttpContext.Session.GetInt32("CurrentLoginUser");
+            if (admin.PersonID == currentUser)
             {
-                return RedirectToAction("Index", "Login");
+                return BadRequest();
             }
 
-            var admin = _context.persons.SingleOrDefault(p => p.personID == id && p.accountType == "admin");
-            if (admin != null)
+            if (admin != null && admin.AccountType == "admin")
             {
-                admin.accountType = "user";
-                _context.SaveChanges();
-                HttpContext.Session.SetString("Message", "Admin Deleted");
+                admin.AccountType = "user";
+                await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("Message", "Admin Role Removed");
             }
-
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult Report()
+        {
+            if (!IsAdmin()) return RedirectToAction("Index", "Login");
+            // Example report logic here
+            ViewBag.ReportDate = System.DateTime.UtcNow;
+            return PartialView("_Report");
         }
 
+        [HttpGet]
+        public IActionResult ApprovedPostsCommentsCount()
+        {
+            if (!IsAdmin()) return RedirectToAction("Index", "Login");
+            var counts = _context.Properties
+                .Where(p => p.HireStatus == 1)
+                .Select(p => new { p.PropertyId, CommentsCount = p.Comments.Count })
+                .ToList();
+            return PartialView("_ApprovedPostsCommentsCount", counts);
+        }
 
     }
 }
