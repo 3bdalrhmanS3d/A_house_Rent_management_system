@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using Tasken2.Controllers.DTOs;
 using Tasken2.DBContext;
+using Tasken2.Migrations;
 using Tasken2.Models;
 
 namespace Tasken2.Controllers
@@ -74,6 +76,99 @@ namespace Tasken2.Controllers
             return RedirectToAction("Index", "Login");
         }
 
+        // GET: Display the "Forgot Password" form
+        [HttpGet]
+        public IActionResult ForgetPassword()
+        {
+            return View(new ForgetPasswordViewModel());
+        }
+
+        // POST: Handle the "Forgot Password" submission
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgetPassword(ForgetPasswordViewModel vm)
+        {
+            if (!ModelState.IsValid)
+                return View(vm);
+
+            // Find user by National ID
+            var user = await _context.Persons
+                                     .SingleOrDefaultAsync(x => x.nationalID == vm.NationalID);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "No user was found with that National ID.");
+                return View(vm);
+            }
+
+            // Generate a one-hour reset token
+            var resetToken = Guid.NewGuid().ToString();
+
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddHours(1),
+                HttpOnly = true,
+                Secure = true,
+                IsEssential = true,
+                SameSite = SameSiteMode.Strict
+            };
+
+            // Store token and user email in cookies
+            Response.Cookies.Append("PWResetToken", resetToken, cookieOptions);
+            Response.Cookies.Append("PWResetEmail", user.email, cookieOptions);
+
+            TempData["Info"] = "A password reset link is valid for 1 hour.";
+            return RedirectToAction("ResetPassword");
+        }
+
+        // GET: Display the "Reset Password" form
+        [HttpGet]
+        public IActionResult ResetPassword()
+        {
+            // If no valid reset token, redirect back
+            if (!Request.Cookies.ContainsKey("PWResetToken"))
+            {
+                TempData["Error"] = "The reset link has expired or is invalid.";
+                return RedirectToAction("ForgetPassword");
+            }
+
+            return View(new ResetPasswordViewModel());
+        }
+
+        // POST: Handle the "Reset Password" submission
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel vm)
+        {
+            // Verify token and email exist in cookies
+            if (!Request.Cookies.TryGetValue("PWResetToken", out var token) ||
+                !Request.Cookies.TryGetValue("PWResetEmail", out var email))
+            {
+                TempData["Error"] = "The reset link has expired or is invalid.";
+                return RedirectToAction("ForgetPassword");
+            }
+
+            if (!ModelState.IsValid)
+                return View(vm);
+
+            // Find the user by email
+            var user = await _context.Persons
+                                     .SingleOrDefaultAsync(x => x.email == email);
+            if (user == null)
+                return BadRequest("Unexpected error: user not found.");
+
+            // Hash and save the new password
+            user.PasswordHash = _passwordHasher.HashPassword(user, vm.NewPassword);
+            await _context.SaveChangesAsync();
+
+            // Remove the reset cookies
+            Response.Cookies.Delete("PWResetToken");
+            Response.Cookies.Delete("PWResetEmail");
+
+            TempData["Success"] = "Your password has been reset successfully. You can now log in.";
+            return RedirectToAction("Index", "Login");
+        }
+        
         [HttpGet]
         [ApiExplorerSettings(IgnoreApi = true)] //to hide this action from the Swagger/Explorer
         public async Task<IActionResult> SeedUsers()
